@@ -1,0 +1,73 @@
+import globals;
+
+defproc wavegen(bool xi, xo; bool A, B, dack)
+{
+  bool _xi;
+  bool _xo;
+
+  bool _a;
+
+  prs {
+    xi => _xi-
+
+    ~B & ~xo & ~dack & ~_xi -> A+
+    Reset | xo & dack -> A-
+
+
+    [after=0] A => _a-
+    ~_a -> xo+
+    Reset | B & _xi -> xo-
+
+   [after=0] xo => _xo-
+
+   ~A & ~_xo & ~dack & ~xi -> B+
+   Reset | _xo & dack -> B-
+ }
+ sizing {
+   _xi {-1}; 
+   A {-1}; 
+   _a {-1};
+   xo {-1};
+   _xo {-1};
+   B {-1}
+ }
+}
+
+template<pint N>
+defproc delay_line(bool in, out)
+{
+  bool x[N];
+  prs {
+    (i:N-1: x[i] => x[i+1]+  )
+
+    in => x[0]+
+    x[N-1] => out+
+
+  }
+}
+
+
+defproc dack_gen(bool A, B, dack)
+{
+  bool _da;
+  prs {
+   A | B => _da-
+   _da => dack-
+  }
+}
+
+
+defproc xi_gen(bool xi, xo)
+{
+  prs {
+   ~Reset & ~xo => xi+
+  }
+}
+
+
+defproc test()
+{
+  dack_gen d;
+  xi_gen x;
+  wavegen w(.xi=x.xi, .xo=x.xo, .A=d.A, .B=d.B, .dack=d.dack);
+}
