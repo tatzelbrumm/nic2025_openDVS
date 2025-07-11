@@ -4,8 +4,10 @@ Telluride Neuromorphic Workshop project to design open-source DVS camera at the 
 Commit access to project members ONLY. Please upload your VERFIFIED FINAL designs ONLY.
 
 Files to be uploaded (Tentative; keep checking for updates)
-Analog Design: Xschem (.sch) files including Ngspice/Xyce simulation setup with output data (.raw) files
-Digital Design: ACT (.act, .src) files including Xyce setup with output netlist (.prn) or waveform (.vcd) files 
+
+1. Analog Design: Xschem (.sch) files including Ngspice/Xyce simulation setup with output data (.raw) files
+
+2. Digital Design: ACT (.act, .src) files including Xyce setup with output netlist (.prn) or waveform (.vcd) files 
 
 Architecture details
 1. 64x64 array (that can be tiled for scaling up resolution)
@@ -17,8 +19,12 @@ Architecture details
 
 Target Specs (TBD)
 Supply: 1.8V (could be scaled down to 1.2V)
+
 Latency: 64µs to 200µs (64 rows x 1-3µs per row), depends on analog settling time
+
 Power: 30µW (200nA*1.8V static + dynamic = 400nW per column X 64), depends on analog settling time
+
 Contrast Sensitivity: 10-15% i.e. detect VPH changes of 4-6mV assuming 9:1 cap ratio in DDS stage, VREF needs to swing 10x i.e. 40-60mV
+
 Dynamic Range: ~100dB (100fA – 10nA photocurrent) needs special care of photodetector design
 
