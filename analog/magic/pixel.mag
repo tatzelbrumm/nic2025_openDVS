@@ -1,6 +1,10 @@
 magic
 tech sky130A
-timestamp 1752353166
+timestamp 1752354234
 << isosubstrate >>
 rect 0 0 1200 1200
+use sky130_fd_pr__cap_mim_m3_1_FUJAMD  sky130_fd_pr__cap_mim_m3_1_FUJAMD_0
+timestamp 1752354234
+transform 1 0 0 0 1 0
+box -699 -1080 699 1080
 << end >>
