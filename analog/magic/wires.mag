@@ -1,0 +1,17 @@
+magic
+tech sky130A
+timestamp 1752533151
+<< dnwell >>
+rect 0 0 1200 1200
+<< metal1 >>
+rect 0 14 1200 28
+rect 0 42 1200 56
+rect 0 70 1200 84
+rect 0 1116 1200 1130
+rect 0 1144 1200 1158
+rect 0 1172 1200 1186
+<< metal2 >>
+rect 1116 0 1130 1200
+rect 1144 0 1158 1200
+rect 1172 0 1186 1200
+<< end >>
