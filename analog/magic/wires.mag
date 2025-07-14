@@ -1,8 +1,6 @@
 magic
 tech sky130A
 timestamp 1752533151
-<< dnwell >>
-rect 0 0 1200 1200
 << metal1 >>
 rect 0 14 1200 28
 rect 0 42 1200 56
