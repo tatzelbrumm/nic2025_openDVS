@@ -1,6 +1,10 @@
 magic
 tech sky130A
-timestamp 1752354234
+timestamp 1752619200
 << isosubstrate >>
 rect 0 0 1200 1200
+use wires  wires_0
+timestamp 1752533151
+transform 1 0 0 0 1 0
+box 0 0 1200 1200
 << end >>
