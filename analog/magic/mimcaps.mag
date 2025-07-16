@@ -14,6 +14,13 @@ use sky130_fd_pr__cap_mim_m3_1_FJFAMD  sky130_fd_pr__cap_mim_m3_1_FJFAMD_0
 timestamp 1752698335
 transform 1 0 0 0 1 0
 box -386 -240 386 240
+<< labels >>
+flabel metal4 s 286 -228 382 1196 0 FreeSans 320 90 0 0 bottom
+port 0 nsew
+flabel metal4 s -1507 407 15 1129 0 FreeSans 320 0 0 0 bigtop
+port 1 nsew
+flabel metal4 s -307 -161 15 161 0 FreeSans 320 0 0 0 liltop
+port 2 nsew
 << properties >>
 string FIXED_BBOX -386 -240 94 240
 string gencell sky130_fd_pr__cap_mim_m3_1
