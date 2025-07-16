@@ -9,9 +9,9 @@ N 70 -20 70 0 {lab=gnd}
 N 100 -20 100 -0 {lab=vdd}
 N 70 70 100 70 {lab=GND!}
 N 100 60 100 70 {lab=GND!}
-N -20 60 -20 90 {lab=gnd}
-N -20 -50 -20 0 {lab=vpd}
-N -20 -50 10 -50 {lab=vpd}
+N -20 40 -20 70 {lab=gnd}
+N -20 -70 -20 -20 {lab=vpd}
+N -20 -70 10 -70 {lab=vpd}
 N -420 210 -420 250 {lab=sf_bias}
 N -370 220 -370 280 {lab=sf_bias}
 N -420 330 -420 360 {lab=gnd}
@@ -27,10 +27,10 @@ N -240 200 -240 220 {lab=gnd}
 N -240 110 -240 140 {lab=vref}
 N -20 -110 10 -110 {lab=vref}
 N -40 -110 -20 -110 {lab=vref}
-N 180 -190 220 -190 {lab=sense}
-N -40 -170 10 -170 {lab=feedback}
-N -40 -190 10 -190 {lab=vdd}
-N -40 -90 10 -90 {lab=gnd}
+N 100 -270 100 -230 {lab=sense}
+N 120 -280 120 -230 {lab=feedback}
+N -40 -170 10 -170 {lab=vdd}
+N 140 -280 140 -230 {lab=gnd}
 N -40 -150 10 -150 {lab=vph_bias}
 N -150 220 -150 250 {lab=gnd}
 N -150 200 -150 220 {lab=gnd}
@@ -40,8 +40,8 @@ C {vsource.sym} 70 30 0 0 {name=Vgnd value=0 savecurrent=false}
 C {gnd.sym} 70 80 0 0 {name=l1 lab=GND!}
 C {vsource.sym} 100 30 0 0 {name=Vvdd value=xvdd savecurrent=false}
 C {lab_wire.sym} 70 -10 0 0 {name=p1 sig_type=std_logic lab=gnd}
-C {lab_wire.sym} -20 90 0 0 {name=p2 sig_type=std_logic lab=gnd}
-C {isource.sym} -20 30 0 0 {name=Iipd value=xipd}
+C {lab_wire.sym} -20 70 0 0 {name=p2 sig_type=std_logic lab=gnd}
+C {isource.sym} -20 10 0 0 {name=Iipd value=xipd}
 C {sky130_fd_pr/nfet_01v8.sym} -400 280 0 1 {name=M1
 W=0.5
 L=0.15
@@ -68,10 +68,10 @@ value=vref}
 C {lab_wire.sym} -240 110 0 0 {name=Vvref2 sig_type=std_logic lab=vref
 value=vref}
 C {lab_wire.sym} -40 -110 0 0 {name=p10 sig_type=std_logic lab=vref}
-C {lab_wire.sym} -40 -170 0 0 {name=p11 sig_type=std_logic lab=feedback}
-C {lab_wire.sym} 220 -190 0 1 {name=p12 sig_type=std_logic lab=sense}
-C {lab_wire.sym} -40 -190 0 0 {name=p13 sig_type=std_logic lab=vdd}
-C {lab_wire.sym} -40 -90 0 0 {name=p14 sig_type=std_logic lab=gnd}
+C {lab_wire.sym} 120 -280 3 1 {name=p11 sig_type=std_logic lab=feedback}
+C {lab_wire.sym} 100 -270 3 1 {name=p12 sig_type=std_logic lab=sense}
+C {lab_wire.sym} -40 -170 0 0 {name=p13 sig_type=std_logic lab=vdd}
+C {lab_wire.sym} 140 -280 3 1 {name=p14 sig_type=std_logic lab=gnd}
 C {lab_wire.sym} -40 -150 0 0 {name=p15 sig_type=std_logic lab=vph_bias}
 C {vsource.sym} -150 170 0 0 {name=Vvph_bias value=xvph_bias savecurrent=false}
 C {lab_wire.sym} -150 250 0 0 {name=Vvref4 sig_type=std_logic lab=gnd
@@ -108,6 +108,6 @@ op
 write pixel_tb.raw
 .endc
 "}
-C {noconn.sym} 220 -190 2 0 {name=l2}
-C {noconn.sym} -40 -170 0 0 {name=l3}
-C {lab_wire.sym} -20 -30 0 0 {name=p8 sig_type=std_logic lab=vpd}
+C {noconn.sym} 100 -270 1 0 {name=l2}
+C {noconn.sym} 120 -280 1 0 {name=l3}
+C {lab_wire.sym} -20 -50 0 0 {name=p8 sig_type=std_logic lab=vpd}
