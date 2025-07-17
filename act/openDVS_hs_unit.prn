@@ -1,0 +1,262 @@
+*
+*---- act defproc: event_hs<> -----
+* raw ports:  event on_detect off_detect on_ack off_ack on_req off_req
+*
+.subckt event_hs event on__detect off__detect on__ack off__ack on__req off__req
+*.PININFO event:I on__detect:I off__detect:I on__ack:I off__ack:I on__req:O off__req:O
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __on__detect (combinational)
+* __off__detect (combinational)
+* __event (combinational)
+* on__req (state-holding): pup_reff=0.4; pdn_reff=0.333333
+* off__req (state-holding): pup_reff=0.4; pdn_reff=0.333333
+*
+* --- end node flags ---
+*
+xM0_ Vdd on__detect __on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd off__detect __off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ Vdd event __event Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ Vdd __on__detect #9 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ Vdd __off__detect #13 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM5_ Vdd on__req #fb15# Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.3 nrs=1 nrd=1 nf=1
+xM6_ Vdd off__req #fb18# Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.3 nrs=1 nrd=1 nf=1
+xM7_keeper Vdd GND #16 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM8_keeper Vdd GND #19 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM9_ GND on__detect __on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM10_ GND off__detect __off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM11_ GND event __event GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM12_ GND Reset on__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM13_ GND on__ack on__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM14_ GND Reset off__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM15_ GND off__ack off__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM16_ GND on__req #fb15# GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.3 nrs=1 nrd=1 nf=1
+xM17_ GND off__req #fb18# GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.3 nrs=1 nrd=1 nf=1
+xM18_keeper GND Vdd #17 GND sky130_fd_pr__nfet_01v8 W=0.45 L=2.55 nrs=1 nrd=1 nf=1
+xM19_keeper GND Vdd #20 GND sky130_fd_pr__nfet_01v8 W=0.45 L=2.55 nrs=1 nrd=1 nf=1
+C_per_node_0 __on__detect GND 5e-15
+C_per_node_1 __off__detect GND 5e-15
+C_per_node_2 __event GND 5e-15
+C_per_node_3 on__req GND 5e-15
+xM20_ #9 event on__req Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM21_keeper #16 #fb15# on__req Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM22_keeper #17 #fb15# on__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_4 off__req GND 5e-15
+xM23_ #13 __event off__req Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM24_keeper #19 #fb18# off__req Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM25_keeper #20 #fb18# off__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+.ends
+*---- end of process: event_hs<> -----
+*
+*---- act defproc: ack_gen<> -----
+* raw ports:  req ack
+*
+.subckt ack_gen req ack
+*.PININFO req:I ack:O
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __req (combinational)
+* ack (combinational)
+*
+* --- end node flags ---
+*
+xM0_ Vdd req __req Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd __req ack Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ GND req __req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ GND __req ack GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_0 __req GND 5e-15
+C_per_node_1 ack GND 5e-15
+.ends
+*---- end of process: ack_gen<> -----
+*
+*---- act defproc: row_sel_gen<> -----
+* raw ports:  row_sel en0 en1 pix_rst
+*
+.subckt row_sel_gen row__sel en0 en1 pix__rst
+*.PININFO row__sel:O en0:I en1:I pix__rst:I
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* row__sel (combinational)
+*
+* --- end node flags ---
+*
+xM0_ Vdd Reset #5 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ GND Reset row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ GND en0 row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ GND en1 row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ GND pix__rst row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_0 row__sel GND 5e-15
+xM5_ #3 pix__rst row__sel Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM6_ #4 en1 #3 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM7_ #5 en0 #4 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+.ends
+*---- end of process: row_sel_gen<> -----
+*
+*---- act defproc: hs_unit<> -----
+* raw ports:  row_sel en0 en1 _en0 _en1 on_detect off_detect pix_rst det_ack
+*
+.subckt hs_unit row__sel en0 en1 __en0 __en1 on__detect off__detect pix__rst det__ack
+*.PININFO row__sel:I en0:O en1:O __en0:O __en1:O on__detect:O off__detect:O pix__rst:O det__ack:I
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __row__sel (combinational)
+* __en0 (combinational)
+* en0 (state-holding): pup_reff=0.6; pdn_reff=0.333333
+* __en1 (combinational)
+* en1 (state-holding): pup_reff=0.6; pdn_reff=0.333333
+* on__detect (state-holding): pup_reff=1.2; pdn_reff=1
+* pix__rst (state-holding): pup_reff=1.2; pdn_reff=0.333333
+* off__detect (state-holding): pup_reff=1.2; pdn_reff=1
+* __on__detect (combinational)
+* __off__detect (combinational)
+*
+* --- end node flags ---
+*
+xM0_ Vdd row__sel __row__sel Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd en0 __en0 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ Vdd en1 __en1 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ Vdd pix__rst #13 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ Vdd __on__detect #18 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM5_ Vdd __off__detect #18 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM6_ Vdd on__detect __on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM7_ Vdd off__detect __off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM8_ Vdd pix__rst #28 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM9_ Vdd __off__detect #30 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM10_ Vdd on__detect #37 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM11_keeper Vdd GND #38 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM12_keeper Vdd GND #40 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM13_ Vdd pix__rst #fb44# Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.3 nrs=1 nrd=1 nf=1
+xM14_keeper Vdd GND #42 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=2.85 nrs=1 nrd=1 nf=1
+xM15_keeper Vdd GND #45 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM16_keeper Vdd GND #47 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=2.85 nrs=1 nrd=1 nf=1
+xM17_ GND row__sel __row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM18_ GND en0 __en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM19_ GND en1 __en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM20_ GND Reset on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM21_ GND en0 #23 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM22_ GND Reset en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM23_ GND pix__rst en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM24_ GND on__detect __on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM25_ GND off__detect __off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM26_ GND Reset off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM27_ GND en0 #32 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM28_ GND Reset en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM29_ GND pix__rst en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM30_ GND Reset pix__rst GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM31_ GND __row__sel pix__rst GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM32_keeper GND Vdd #39 GND sky130_fd_pr__nfet_01v8 W=0.45 L=3.9 nrs=1 nrd=1 nf=1
+xM33_keeper GND Vdd #41 GND sky130_fd_pr__nfet_01v8 W=0.45 L=3.9 nrs=1 nrd=1 nf=1
+xM34_ GND pix__rst #fb44# GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.3 nrs=1 nrd=1 nf=1
+xM35_keeper GND Vdd #43 GND sky130_fd_pr__nfet_01v8 W=0.45 L=8.025 nrs=1 nrd=1 nf=1
+xM36_keeper GND Vdd #46 GND sky130_fd_pr__nfet_01v8 W=0.45 L=8.025 nrs=1 nrd=1 nf=1
+xM37_keeper GND Vdd #48 GND sky130_fd_pr__nfet_01v8 W=0.45 L=8.025 nrs=1 nrd=1 nf=1
+C_per_node_0 __row__sel GND 5e-15
+C_per_node_1 __en0 GND 5e-15
+C_per_node_2 en0 GND 5e-15
+xM38_ #17 __row__sel en0 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM39_keeper #38 __en0 en0 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM40_keeper #39 __en0 en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_3 __en1 GND 5e-15
+C_per_node_4 en1 GND 5e-15
+xM41_ #29 __row__sel en1 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM42_keeper #40 __en1 en1 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM43_keeper #41 __en1 en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_5 on__detect GND 5e-15
+xM44_ #9 __row__sel on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM45_ #22 det__ack on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM46_keeper #42 __on__detect on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM47_keeper #43 __on__detect on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM48_ #10 det__ack #9 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM49_ #11 en1 #10 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM50_ #12 en0 #11 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM51_ #13 off__detect #12 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_6 pix__rst GND 5e-15
+xM52_ #33 __row__sel pix__rst Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM53_keeper #45 #fb44# pix__rst Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM54_keeper #46 #fb44# pix__rst GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_7 off__detect GND 5e-15
+xM55_ #24 __row__sel off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM56_ #31 det__ack off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM57_keeper #47 __off__detect off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM58_keeper #48 __off__detect off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM59_ #18 pix__rst #17 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_8 __on__detect GND 5e-15
+C_per_node_9 __off__detect GND 5e-15
+xM60_ #23 __en1 #22 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM61_ #25 det__ack #24 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM62_ #26 en1 #25 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM63_ #27 __en0 #26 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM64_ #28 on__detect #27 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM65_ #30 pix__rst #29 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM66_ #32 en1 #31 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM67_ #34 det__ack #33 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM68_ #35 __en1 #34 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM69_ #36 __en0 #35 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM70_ #37 off__detect #36 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+.ends
+*---- end of process: hs_unit<> -----
+*
+*---- act defproc: dack_gen<> -----
+* raw ports:  on_detect off_detect det_ack
+*
+.subckt dack_gen on__detect off__detect det__ack
+*.PININFO on__detect:I off__detect:I det__ack:O
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __da (combinational)
+* det__ack (combinational)
+*
+* --- end node flags ---
+*
+xM0_ Vdd on__detect #5 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd __da det__ack Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ GND on__detect __da GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ GND off__detect __da GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ GND __da det__ack GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_0 __da GND 5e-15
+xM5_ #5 off__detect __da Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_1 det__ack GND 5e-15
+.ends
+*---- end of process: dack_gen<> -----
+*
+*---- act defproc: test<> -----
+* raw ports: 
+*
+.subckt test
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+xehs ehs_aevent d_aon__detect d_aoff__detect ag1_aack ag2_aack ag1_areq ag2_areq event_hs
+xag1 ag1_areq ag1_aack ack_gen
+xx x_arow__sel x_aen0 x_aen1 x_apix__rst row_sel_gen
+xhsu x_arow__sel x_aen0 x_aen1 hsu_a__en0 ehs_aevent d_aon__detect d_aoff__detect x_apix__rst d_adet__ack hs_unit
+xag2 ag2_areq ag2_aack ack_gen
+xd d_aon__detect d_aoff__detect d_adet__ack dack_gen
+.ends
+*---- end of process: test<> -----

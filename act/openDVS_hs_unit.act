@@ -1,0 +1,128 @@
+import globals;
+
+defproc hs_unit(bool row_sel, en0, en1, _en0, _en1; bool on_detect, off_detect, pix_rst, det_ack)
+{
+  //bool _en0, _en1;
+  bool _row_sel;
+
+  bool _on_detect;
+  bool _off_detect;
+
+  prs {
+    row_sel => _row_sel-
+    en0 => _en0-
+    en1 => _en1-
+
+    [after=40000] ~pix_rst & ~off_detect & ~en0 & ~en1 & ~det_ack & ~_row_sel -> on_detect+
+    (~_on_detect | ~_off_detect) & ~pix_rst & ~_row_sel -> en0+
+    [after=40000] Reset | en0 & _en1 & det_ack -> on_detect-
+    Reset | pix_rst -> en0-
+
+    on_detect => _on_detect-
+    off_detect => _off_detect-
+
+    [after=40000] ~pix_rst & ~on_detect & ~_en0 & ~en1  & ~det_ack & ~_row_sel -> off_detect+
+    ~_off_detect & ~pix_rst & ~_row_sel -> en1+
+    [after=40000] Reset | en0 & en1 & det_ack -> off_detect-
+    Reset | pix_rst -> en1-
+   
+    [after=20000] ~on_detect & ~off_detect & ~_en0 & ~_en1 & ~det_ack & ~_row_sel -> pix_rst+
+    [after=20000] Reset | _row_sel -> pix_rst-
+ }
+}
+
+defproc event_det(bool? d0,d1; bool! detect, det_ack)
+{
+	prs {
+	    d0 | d1 => detect+
+	    [after=10] detect => det_ack+
+	}
+}	
+
+template<pint N>
+defproc delay_line(bool in, out)
+{
+  bool x[N];
+  prs {
+    (i:N-1: ~Reset & x[i] => x[i+1]+  )
+
+    ~Reset & in => x[0]+
+    ~Reset & x[N-1] => out+
+
+  }
+}
+
+defproc delay_chain(bool? in; bool! out)
+{
+	bool stg1, stg2, stg3;
+	prs {
+	    ~in -> stg1+
+	    Reset | in -> stg1-
+	    ~stg1 & GND <1,100> -> stg2+
+	    Reset | Vdd <1,100> & stg1 -> stg2-
+	    ~stg2 & GND <1,100> -> stg3+
+	    Reset | Vdd <1,100> & stg2  -> stg3-
+	    ~stg3 & GND <1,100> -> out+
+	    Reset | Vdd <1,100> & stg3 -> out-
+	   /* cap<10000> (stg1, GND)
+	    cap<10000> (stg2, GND)
+	    cap<10000> (stg3, GND)*/
+	}
+}
+
+defproc dack_gen(bool on_detect, off_detect, det_ack)
+{
+  bool _da;
+  prs {
+   on_detect | off_detect => _da-
+   [after=0000] _da => det_ack-
+  }
+}
+
+
+defproc row_sel_gen(bool row_sel, en0, en1, pix_rst)
+{
+  prs {
+   [after=200000] ~Reset & ~en0 & ~en1 & ~pix_rst => row_sel+
+  }
+}
+
+defproc event_hs(bool? event, on_detect, off_detect, on_ack, off_ack; bool! on_req, off_req)
+{
+	bool _on_detect;
+	bool _off_detect;
+	bool _event;
+	
+	prs {
+	    on_detect => _on_detect-
+	    off_detect => _off_detect-
+	    event => _event-
+	    ~_on_detect & ~event -> on_req+
+	    Reset | on_ack -> on_req-
+	    ~_off_detect & ~_event -> off_req+
+	    Reset | off_ack -> off_req-
+	}    
+}
+
+defproc ack_gen(bool? req; bool! ack)
+{
+	bool _req;
+	
+	prs {
+	    [after=80000] req => _req-
+	    [after=80000] _req => ack-
+	}    
+}
+
+defproc test()
+{
+  dack_gen d;
+  row_sel_gen x;
+  //bool rs_dly;
+  //delay_line<4> dly(.in=x.row_sel, .out=rs_dly);
+
+  ack_gen ag1;
+  ack_gen ag2;
+  hs_unit hsu(.row_sel=x.row_sel, .en0=x.en0, .en1=x.en1, .pix_rst=x.pix_rst, .on_detect=d.on_detect, .off_detect=d.off_detect, .det_ack=d.det_ack);
+  event_hs ehs(.event=hsu._en1, .on_detect=d.on_detect, .off_detect=d.off_detect, .on_req=ag1.req, .on_ack=ag1.ack, .off_req=ag2.req, .off_ack=ag2.ack);
+}
