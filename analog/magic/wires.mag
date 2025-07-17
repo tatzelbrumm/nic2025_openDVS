@@ -8,8 +8,8 @@ rect 0 1174 1200 1200
 rect 0 1108 1200 1158
 rect 0 1066 1200 1092
 rect 0 1000 1200 1050
-rect 0 968 1200 984
-rect 0 936 1200 952
+rect 0 958 1200 984
+rect 0 916 1200 942
 << via1 >>
 rect 1108 1000 1158 1050
 << metal2 >>
@@ -22,9 +22,9 @@ flabel metal1 0 1000 1200 1050 0 FreeSans 100 0 0 0 GND
 port 0 ew
 flabel metal1 0 1108 1200 1158 0 FreeSans 100 0 0 0 VDD
 port 1 ew
-flabel metal1 0 968 1200 984 0 FreeSans 100 0 0 0 vph_bias
+flabel metal1 0 958 1200 984 0 FreeSans 100 0 0 0 vph_bias
 port 2 ew
-flabel metal1 0 936 1200 952 0 FreeSans 100 0 0 0 sf_bias
+flabel metal1 0 916 1200 942 0 FreeSans 100 0 0 0 sf_bias
 port 3 ew
 flabel metal1 0 1066 1200 1092 0 FreeSans 100 0 0 0 vref
 port 4 ew
