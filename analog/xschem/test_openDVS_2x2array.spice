@@ -1,0 +1,573 @@
+************************************************************************************************************************************************
+*****Telluride Neuromorphic Workshop 2025
+*****Neuromorphic Integrated Circuits (NIC) Topic Area
+*****openDVS Project
+
+*****Author: Prof. Rajkumar Kubendran, University of Pittsburgh, Email:rajkumar.ece@pitt.edu
+*****Date: 16 July 2025
+************************************************************************************************************************************************
+
+************************************************************************************************************************************************
+*****Initialize Supply voltage
+vdd VDD GND 1.8
+.save i(vdd)
+************************************************************************************************************************************************
+
+************************************************************************************************************************************************
+*****SUB CIRCUIT BLOCKS ------------------------------------------------------- START
+************************************************************************************************************************************************
+
+************************************************************************************************************************************************
+*****Delay Line 
+************************************************************************************************************************************************
+
+.subckt delay_line VIN VOUT_DLY
+XM1 VOUT VIN GND GND sky130_fd_pr__nfet_01v8 L=5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM2 VOUT VIN VDD VDD sky130_fd_pr__pfet_01v8 L=5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1
++ m=1
+XM3 net1 VOUT GND GND sky130_fd_pr__nfet_01v8 L=5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM4 net1 VOUT VDD VDD sky130_fd_pr__pfet_01v8 L=5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1
++ m=1
+XM5 net2 net1 GND GND sky130_fd_pr__nfet_01v8 L=5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM6 net2 net1 VDD VDD sky130_fd_pr__pfet_01v8 L=5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0 mult=1
++ m=1
+XM7 VOUT_DLY net2 GND GND sky130_fd_pr__nfet_01v8 L=5 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM8 VOUT_DLY net2 VDD VDD sky130_fd_pr__pfet_01v8 L=5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+C1 VOUT GND 0.1p m=1
+C2 net1 GND 0.5p m=1
+C3 net2 GND 2p m=1
+.ends
+
+************************************************************************************************************************************************
+*****2:1 Analog MUX
+************************************************************************************************************************************************
+
+.subckt amux_2x1 vin0 vin1 vout sel
+XM1 vin0 sel vout GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM2 vin0 selb vout VDD sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM3 selb sel GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM4 selb sel VDD VDD sky130_fd_pr__pfet_01v8 L=0.15 W=3 nf=1 ad=0.87 as=0.87 pd=6.58 ps=6.58 nrd=0.097
++ nrs=0.097 sa=0 sb=0 sd=0 mult=1 m=1
+XM5 vin1 selb vout GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM6 vin1 sel vout VDD sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0
++ mult=1 m=1
+.ends
+
+************************************************************************************************************************************************
+******4:1 Analog MUX
+************************************************************************************************************************************************
+
+.subckt amux_4x1 vin0 vin1 vin2 vin3 vout sel0 sel1
+xmux1 vin0 vin1 vout0 sel1 amux_2x1
+xmux2 vin2 vin3 vout1 sel1 amux_2x1
+xmux3 vout0 vout1 vout sel0 amux_2x1
+.ends
+
+************************************************************************************************************************************************
+*****ACT based Event Handshaking
+************************************************************************************************************************************************
+
+*---- act defproc: event_hs<> -----
+* raw ports:  event on_detect off_detect on_ack off_ack on_req off_req
+*
+.subckt event_hs event on__detect off__detect on__ack off__ack on__req off__req
+*.PININFO event:I on__detect:I off__detect:I on__ack:I off__ack:I on__req:O off__req:O
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __on__detect (combinational)
+* __off__detect (combinational)
+* __event (combinational)
+* on__req (state-holding): pup_reff=0.4; pdn_reff=0.333333
+* off__req (state-holding): pup_reff=0.4; pdn_reff=0.333333
+*
+* --- end node flags ---
+*
+xM0_ Vdd on__detect __on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd off__detect __off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ Vdd event __event Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ Vdd __on__detect #9 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ Vdd __off__detect #13 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM5_ Vdd on__req #fb15# Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.3 nrs=1 nrd=1 nf=1
+xM6_ Vdd off__req #fb18# Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.3 nrs=1 nrd=1 nf=1
+xM7_keeper Vdd GND #16 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM8_keeper Vdd GND #19 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM9_ GND on__detect __on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM10_ GND off__detect __off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM11_ GND event __event GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM12_ GND Reset on__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM13_ GND on__ack on__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM14_ GND Reset off__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM15_ GND off__ack off__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM16_ GND on__req #fb15# GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.3 nrs=1 nrd=1 nf=1
+xM17_ GND off__req #fb18# GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.3 nrs=1 nrd=1 nf=1
+xM18_keeper GND Vdd #17 GND sky130_fd_pr__nfet_01v8 W=0.45 L=2.55 nrs=1 nrd=1 nf=1
+xM19_keeper GND Vdd #20 GND sky130_fd_pr__nfet_01v8 W=0.45 L=2.55 nrs=1 nrd=1 nf=1
+C_per_node_0 __on__detect GND 5e-15
+C_per_node_1 __off__detect GND 5e-15
+C_per_node_2 __event GND 5e-15
+C_per_node_3 on__req GND 5e-15
+xM20_ #9 event on__req Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM21_keeper #16 #fb15# on__req Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM22_keeper #17 #fb15# on__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_4 off__req GND 5e-15
+xM23_ #13 __event off__req Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM24_keeper #19 #fb18# off__req Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM25_keeper #20 #fb18# off__req GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+.ends
+*---- end of process: event_hs<> -----
+*
+
+************************************************************************************************************************************************
+*****ON/OFF Event Acknowledgement (Simple delay line)
+************************************************************************************************************************************************
+
+*---- act defproc: ack_gen<> -----
+* raw ports:  req ack
+*
+.subckt ack_gen req ack
+*.PININFO req:I ack:O
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __req (combinational)
+* ack (combinational)
+*
+* --- end node flags ---
+*
+xdly1 req rsel_dly1 delay_line
+xdly2 rsel_dly1 rsel_dly2 delay_line
+xdly3 rsel_dly2 rsel_dly3 delay_line
+xdly4 rsel_dly3 rsel_dly4 delay_line
+xdly5 rsel_dly4 ack delay_line
+.ends
+*---- end of process: ack_gen<> -----
+
+************************************************************************************************************************************************
+****ACT based Row Select Generation (with delay line to set row scan time)
+************************************************************************************************************************************************
+
+.subckt row_sel_gen rsel_dly en0 en1 pix__rst Reset
+*.PININFO row__sel:O en0:I en1:I pix__rst:I
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* row__sel (combinational)
+*
+* --- end node flags ---
+*
+xdly3 row__sel rsel_dly1 delay_line
+xdly4 rsel_dly1 rsel_dly2 delay_line
+xdly5 rsel_dly2 rsel_dly3 delay_line
+xdly6 rsel_dly3 rsel_dly4 delay_line
+xdly7 rsel_dly4 rsel_dly delay_line
+*xdly8 rsel_dly5 rsel_dly6 delay_line
+*xdly9 rsel_dly6 rsel_dly7 delay_line
+*xdly10 rsel_dly7 rsel_dly8 delay_line
+*xdly11 rsel_dly8 rsel_dly9 delay_line
+*xdly12 rsel_dly9 rsel_dly delay_line
+
+xM0_ Vdd Reset #5 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ GND Reset row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ GND en0 row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ GND en1 row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ GND pix__rst row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_0 row__sel GND 5e-15
+xM5_ #3 pix__rst row__sel Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM6_ #4 en1 #3 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM7_ #5 en0 #4 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+.ends
+*---- end of process: row_sel_gen<> -----
+*
+
+************************************************************************************************************************************************
+***ACT based Digital Control Signals : DETECT, PIXEL RESET, ROW SELECT, VREF UP/DOWN/MID SELECT with delay lines for on/off detect and pixel reset
+************************************************************************************************************************************************
+
+*---- act defproc: hs_unit<> -----
+* raw ports:  row_sel en0 en1 on_detect off_detect pix_rst det_ack
+*
+.subckt hs_unit row__sel en0 en1 ondet_dly offdet_dly pxrst det__ack Reset
+*.PININFO row__sel:I en0:O en1:O on__detect:O off__detect:O pix__rst:O det__ack:I
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __row__sel (combinational)
+* __en0 (combinational)
+* en0 (state-holding): pup_reff=0.6; pdn_reff=0.333333
+* __en1 (combinational)
+* en1 (state-holding): pup_reff=0.6; pdn_reff=0.333333
+* on__detect (state-holding): pup_reff=1.2; pdn_reff=1
+* pix__rst (state-holding): pup_reff=1.2; pdn_reff=0.333333
+* off__detect (state-holding): pup_reff=1.2; pdn_reff=1
+* __on__detect (combinational)
+* __off__detect (combinational)
+*
+* --- end node flags ---
+*
+
+.save v(row__sel) v(en0) v(en1) v(on__detect) v(ondet_dly) v(off__detect) v(offdet_dly) v(pix__rst) v(pxrst) v(det__ack) v(Reset)
+
+xdly1 on__detect ondet_dly delay_line
+*xdly1on ondet_dly1 ondet_dly delay_line
+xdly2 off__detect offdet_dly delay_line
+*xdly2off offdet_dly1 offdet_dly delay_line
+
+xdlyrst pix__rst pxrst delay_line
+
+xM0_ Vdd row__sel __row__sel Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd en0 __en0 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ Vdd en1 __en1 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ Vdd pix__rst #13 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ Vdd __on__detect #18 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM5_ Vdd __off__detect #18 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM6_ Vdd on__detect __on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM7_ Vdd off__detect __off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM8_ Vdd pix__rst #28 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM9_ Vdd __off__detect #30 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM10_ Vdd on__detect #37 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM11_keeper Vdd GND #38 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM12_keeper Vdd GND #40 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM13_ Vdd pix__rst #fb44# Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.3 nrs=1 nrd=1 nf=1
+xM14_keeper Vdd GND #42 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=2.85 nrs=1 nrd=1 nf=1
+xM15_keeper Vdd GND #45 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.825 nrs=1 nrd=1 nf=1
+xM16_keeper Vdd GND #47 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=2.85 nrs=1 nrd=1 nf=1
+xM17_ GND row__sel __row__sel GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM18_ GND en0 __en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM19_ GND en1 __en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM20_ GND Reset on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM21_ GND en0 #23 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM22_ GND Reset en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM23_ GND pix__rst en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM24_ GND on__detect __on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM25_ GND off__detect __off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM26_ GND Reset off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM27_ GND en0 #32 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM28_ GND Reset en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM29_ GND pix__rst en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM30_ GND Reset pix__rst GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM31_ GND __row__sel pix__rst GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM32_keeper GND Vdd #39 GND sky130_fd_pr__nfet_01v8 W=0.45 L=3.9 nrs=1 nrd=1 nf=1
+xM33_keeper GND Vdd #41 GND sky130_fd_pr__nfet_01v8 W=0.45 L=3.9 nrs=1 nrd=1 nf=1
+xM34_ GND pix__rst #fb44# GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.3 nrs=1 nrd=1 nf=1
+xM35_keeper GND Vdd #43 GND sky130_fd_pr__nfet_01v8 W=0.45 L=8.025 nrs=1 nrd=1 nf=1
+xM36_keeper GND Vdd #46 GND sky130_fd_pr__nfet_01v8 W=0.45 L=8.025 nrs=1 nrd=1 nf=1
+xM37_keeper GND Vdd #48 GND sky130_fd_pr__nfet_01v8 W=0.45 L=8.025 nrs=1 nrd=1 nf=1
+C_per_node_0 __row__sel GND 5e-15
+C_per_node_1 __en0 GND 5e-15
+C_per_node_2 en0 GND 5e-15
+xM38_ #17 __row__sel en0 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM39_keeper #38 __en0 en0 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM40_keeper #39 __en0 en0 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_3 __en1 GND 5e-15
+C_per_node_4 en1 GND 5e-15
+xM41_ #29 __row__sel en1 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM42_keeper #40 __en1 en1 Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM43_keeper #41 __en1 en1 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_5 on__detect GND 5e-15
+xM44_ #9 __row__sel on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM45_ #22 det__ack on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM46_keeper #42 __on__detect on__detect Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM47_keeper #43 __on__detect on__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM48_ #10 det__ack #9 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM49_ #11 en1 #10 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM50_ #12 en0 #11 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM51_ #13 off__detect #12 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_6 pix__rst GND 5e-15
+xM52_ #33 __row__sel pix__rst Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM53_keeper #45 #fb44# pix__rst Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM54_keeper #46 #fb44# pix__rst GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_7 off__detect GND 5e-15
+xM55_ #24 __row__sel off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM56_ #31 det__ack off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM57_keeper #47 __off__detect off__detect Vdd sky130_fd_pr__pfet_01v8  W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM58_keeper #48 __off__detect off__detect GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM59_ #18 pix__rst #17 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_8 __on__detect GND 5e-15
+C_per_node_9 __off__detect GND 5e-15
+xM60_ #23 __en1 #22 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM61_ #25 det__ack #24 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM62_ #26 en1 #25 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM63_ #27 __en0 #26 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM64_ #28 on__detect #27 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM65_ #30 pix__rst #29 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM66_ #32 en1 #31 GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM67_ #34 det__ack #33 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM68_ #35 __en1 #34 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM69_ #36 __en0 #35 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM70_ #37 off__detect #36 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+.ends
+*---- end of process: hs_unit<> -----
+*
+************************************************************************************************************************************************
+***** ACT based DETECT Acknowledge
+************************************************************************************************************************************************
+*---- act defproc: dack_gen<> -----
+* raw ports:  on_detect off_detect det_ack 
+*
+.subckt dack_gen on__detect off__detect det__ack Reset
+*.PININFO on__detect:I off__detect:I det__ack:O
+*.POWER VDD Vdd
+*.POWER GND GND
+*.POWER NSUB GND
+*.POWER PSUB Vdd
+*
+* --- node flags ---
+*
+* __da (combinational)
+* det__ack (combinational)
+*
+* --- end node flags ---
+*
+
+*xdlyda __da da_dly delay_line
+
+xM0_ Vdd on__detect #5 Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM1_ Vdd __da det__ack Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+xM2_ GND on__detect __da GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM3_ GND off__detect __da GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+xM4_ GND __da det__ack GND sky130_fd_pr__nfet_01v8 W=0.45 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_0 __da GND 5e-15
+xM5_ #5 off__detect __da Vdd sky130_fd_pr__pfet_01v8  W=0.75 L=0.15 nrs=1 nrd=1 nf=1
+C_per_node_1 det__ack GND 5e-15
+.ends
+*---- end of process: dack_gen<> -----
+
+************************************************************************************************************************************************
+*****SUB CIRCUIT BLOCKS ------------------------------------------------------- STOP
+************************************************************************************************************************************************
+
+
+************************************************************************************************************************************************
+**** MAIN BLOCK !!!! openDVS pixel
+************************************************************************************************************************************************
+.subckt openDVS_pixel row_sel vphoto vref nbias sfbias sense feedback pix_rst
+
+.save v(row_sel) v(vphoto) v(vref) v(vin) v(sense) v(feedback) v(pix_rst) v(vph_sf)
+XCSAMPLE vph_sf vin sky130_fd_pr__cap_mim_m3_1 W=1 L=1 MF=16 m=16
+XCREF vref vin sky130_fd_pr__cap_mim_m3_1 W=1 L=1 MF=2 m=2
+
+XM1 VDD nbias vphoto GND sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM2 vph_sf sfbias GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM3 VDD vphoto vph_sf GND sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM4 net10 vin GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM7 feedback lrst vin GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM11 sense row_sel net10 GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM12 pix_rst row_sel lrst GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0
++ sd=0 mult=1 m=1
+.ends
+
+************************************************************************************************************************************************
+**** MAIN BLOCK !!!! openDVS column unit
+************************************************************************************************************************************************
+.subckt col_unit sense feedback pix_rst vcomp vcascn vcascp clampn clampp vthresh vdc_rst pbias vbtail 
+
+.save v(vcomp) v(vout) v(pbchk)
+ 
+XM5 vout net3 sense GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM6 feedback pix_rst vout GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM8 pbchk pbias VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=3 nf=1 ad=0.87 as=0.87 pd=6.58 ps=6.58 nrd=0.097
++ nrs=0.097 sa=0 sb=0 sd=0 mult=1 m=1
+XM9 vout net5 pbchk VDD sky130_fd_pr__pfet_01v8 L=0.15 W=3 nf=1 ad=0.87 as=0.87 pd=6.58 ps=6.58 nrd=0.097
++ nrs=0.097 sa=0 sb=0 sd=0 mult=1 m=1
+XM10 feedback prst_b vdc_rst GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM13 sense vbtail GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM15 net5 net12 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM16 net12 net12 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM17 net12 vcascp net13 GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM18 net5 pbchk net13 GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+Ipb_casc net13 GND 50n
+XM19 net3 sense net14 VDD sky130_fd_pr__pfet_01v8 L=0.5 W=3 nf=1 ad=0.87 as=0.87 pd=6.58 ps=6.58 nrd=0.097
++ nrs=0.097 sa=0 sb=0 sd=0 mult=1 m=1
+Inb_casc VDD net14 50n
+XM20 net16 vcascn net14 VDD sky130_fd_pr__pfet_01v8 L=0.5 W=3 nf=1 ad=0.87 as=0.87 pd=6.58 ps=6.58 nrd=0.097
++ nrs=0.097 sa=0 sb=0 sd=0 mult=1 m=1
+XM21 net16 net16 GND GND sky130_fd_pr__nfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM22 net3 net16 GND GND sky130_fd_pr__nfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM23 net19 net18 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM24 net18 net18 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM25 net18 vout net20 GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM26 net19 vthresh net20 GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0
++ sd=0 mult=1 m=1
+Ib_comp net20 GND 50n
+XM27 vcomp net19 GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM28 vcomp net19 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM30 VDD clampn vout GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+XM31 GND clampp vout VDD sky130_fd_pr__pfet_01v8 L=0.15 W=2 nf=1 ad=0.58 as=0.58 pd=4.58 ps=4.58 nrd=0.145 nrs=0.145 sa=0 sb=0 sd=0
++ mult=1 m=1
+
+XM32 prst_b pix_rst GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=0.5 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM33 prst_b pix_rst VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=1 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+.ends
+
+************************************************************************************************************************************************
+**** Define DC bias voltages and currents
+************************************************************************************************************************************************
+Iph00 vphoto00 GND pulse(1e-9 1.3e-9 1u 1n 1n 12u 24u)
+Cph00 vphoto00 GND 30f m=1
+Iph01 vphoto01 GND pulse(1e-9 1.3e-9 1u 1n 1n 12u 24u)
+Cph01 vphoto01 GND 30f m=1
+Iph10 vphoto10 GND pulse(1e-9 0.7e-9 1u 1n 1n 12u 24u)
+Cph10 vphoto10 GND 30f m=1
+Iph11 vphoto11 GND pulse(1e-9 0.7e-9 1u 1n 1n 12u 24u)
+Cph11 vphoto11 GND 30f m=1
+
+vnb nbias GND N_BIAS
+vsf sfbias GND SF_BIAS
+vrup vup GND 0.57
+vrdn vdn GND 0.4
+vrmd vmid GND 0.5
+***vref_on vref net9 pulse(0.5 0.57 1u 10n 10n 0.3u 1.5u)
+***vrst pix_rst GND pulse(1.8 0 0.7u 10n 10n 1.2u 1.5u)
+Ipb pbias GND COL_BIAS
+XM14 pbias pbias VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=3 nf=1 ad=0.87 as=0.87 pd=6.58 ps=6.58 nrd=0.097
++ nrs=0.097 sa=0 sb=0 sd=0 mult=1 m=1
+
+vnclamp clampn GND 1
+vpclamp clampp GND 0.8
+vcm vthresh GND 1
+***vrstb net7 GND pulse(0 1.8 0.7u 10n 10n 1.2u 1.5u)
+vrst_dc vdc_rst GND 0.6
+***vref_off net9 GND pulse(0.5 0.4 1.5u 10n 10n 0.3u 1.5u)
+***vrowsel row_sel GND pulse(1.8 0 0.8u 10n 10n 1.5u 3u)
+vtail vbtail GND TAIL
+vcasn vcascn GND VCASN
+vcasp vcascp GND VCASP
+
+
+vrst_act Reset GND pulse(1.8 0 0.7u 10n 10n 50u 51u)
+
+************************************************************************************************************************************************
+**** Connecting all sub blocks
+************************************************************************************************************************************************
+
+xpix00 row_sel0 vphoto00 vref0 nbias sfbias sense0 feedback0 pix_rst0 openDVS_pixel
+xpix01 row_sel0 vphoto01 vref0 nbias sfbias sense1 feedback1 pix_rst1 openDVS_pixel
+xpix10 row_sel1 vphoto10 vref1 nbias sfbias sense0 feedback0 pix_rst0 openDVS_pixel
+xpix11 row_sel1 vphoto11 vref1 nbias sfbias sense1 feedback1 pix_rst1 openDVS_pixel
+
+xcol0 sense0 feedback0 pix_rst0 vcomp_event0 vcascn vcascp clampn clampp vthresh vdc_rst pbias vbtail col_unit
+xx_col0 row_sel0 x_aen0_col0 x_aen1_col0 pix_rst0 Reset row_sel_gen
+xhsu_col0 row_sel0 x_aen0_col0 x_aen1_col0 d_aon__detect0 d_aoff__detect0 pix_rst0 d_adet__ack0 Reset hs_unit
+xd_col0 d_aon__detect0 d_aoff__detect0 d_adet__ack0 Reset dack_gen
+xmux4_col0 vmid vup vdn vmid vref0 d_aon__detect0 d_aoff__detect0 amux_4x1
+xehs_col0 vcomp_event0 d_aon__detect0 d_aoff__detect0 on_ack0 off_ack0 on_req0 off_req0 event_hs
+xag1_col0 on_req0 on_ack0 ack_gen
+xag2_col0 off_req0 off_ack0 ack_gen
+
+xcol1 sense1 feedback1 pix_rst1 vcomp_event1 vcascn vcascp clampn clampp vthresh vdc_rst pbias vbtail col_unit
+**xx_col1 row_sel1 x_aen0_col1 x_aen1_col1 pix_rst1 Reset row_sel_gen
+xhsu_col1 row_sel1 x_aen0_col1 x_aen1_col1 d_aon__detect1 d_aoff__detect1 pix_rst1 d_adet__ack1 Reset hs_unit
+xd_col1 d_aon__detect1 d_aoff__detect1 d_adet__ack1 Reset dack_gen
+xmux4_col1 vmid vup vdn vmid vref1 d_aon__detect1 d_aoff__detect1 amux_4x1
+xehs_col1 vcomp_event1 d_aon__detect1 d_aoff__detect1 on_ack1 off_ack1 on_req1 off_req1 event_hs
+xag1_col1 on_req1 on_ack1 ack_gen
+xag2_col1 off_req1 off_ack1 ack_gen
+
+XM32 row_sel1 row_sel0 GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=3 nf=1 ad=0.145 as=0.145 pd=1.58 ps=1.58 nrd=0.58 nrs=0.58 sa=0 sb=0
++ sd=0 mult=1 m=1
+XM33 row_sel1 row_sel0 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=6 nf=1 ad=0.29 as=0.29 pd=2.58 ps=2.58 nrd=0.29 nrs=0.29 sa=0 sb=0 sd=0
++ mult=1 m=1
+
+*Xdly1 d_aon__detect ondet delay_line
+*Xdly2 d_aoff__detect offdet delay_line
+*Xdly3 x_arow__sel rsel delay_line
+
+**** begin user architecture code
+
+
+************************************************************************************************************************************************
+***** NGSPICE Simualation Setup
+************************************************************************************************************************************************
+
+** opencircuitdesign pdks install
+.lib /usr/local/share/pdk/sky130B/libs.tech/combined/sky130.lib.spice tt
+
+
+#.option reltol=1e-3 abstol=1e-12 vntol=1e-5 gmin=1e-10
+#.option trtol=6 chgtol=1e-12
+#.option rshunt=1e9
+.control
+.param I_PH = 1e-9
+.param N_BIAS = 1.5
+.param SF_BIAS = 0.5
+.param VCASN = 0.2
+.param VCASP = 1.6
+.param COL_BIAS = 4e-7
+.param TAIL = 0.5
+
+save v(vphoto00) v(xpix00.vph_sf) v(xpix00.vin) v(sense0) v(feedback0) v(vcomp_event0)
+save v(pix_rst0) v(xcol0.vout) v(xcol0.pbchk) v(vref0) v(row_sel0)
+save v(on_req0) v(on_ack0) v(off_req0) v(off_ack0)
+save v(vphoto11) v(xpix11.vph_sf) v(xpix11.vin) v(sense1) v(feedback1) v(vcomp_event1)
+save v(pix_rst1) v(xcol1.vout) v(xcol1.pbchk) v(vref1) v(row_sel1)
+save v(on_req1) v(on_ack1) v(off_req1) v(off_ack1)
+#ic v(vin)=0.6
+#ic v(vout)=1
+# dc vph 0 1.8 10m
+tran 1n 25u
+plot v(vphoto00) v(vref0) v(xcol0.vout) v(row_sel0) v(pix_rst0) v(vcomp_event0)
+plot v(vcomp_event0) v(on_req0) v(on_ack0) v(off_req0) v(off_ack0)
+plot v(vphoto11) v(vref1) v(xcol1.vout) v(row_sel1) v(pix_rst1) v(vcomp_event1)
+plot v(vcomp_event1) v(on_req1) v(on_ack1) v(off_req1) v(off_ack1)
+write test_openDVS_2x2array.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+
+
+.GLOBAL VDD
+.GLOBAL GND
+.GLOBAL Reset
+.end
