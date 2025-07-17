@@ -1,18 +1,51 @@
 magic
 tech sky130A
-timestamp 1752779898
+timestamp 1752789543
 << isosubstrate >>
 rect 0 0 1200 1200
+<< poly >>
+rect 1075 985 1108 993
+rect 1075 968 1083 985
+rect 1101 968 1108 985
+rect 1075 960 1108 968
+rect 1093 874 1108 960
+<< polycont >>
+rect 1083 968 1101 985
+<< locali >>
+rect 1083 1197 1101 1200
+rect 1083 985 1101 1177
+rect 1083 960 1101 968
+rect 1114 867 1195 876
+rect 1114 781 1177 867
+rect 1114 772 1195 781
+<< viali >>
+rect 1083 1177 1101 1197
+rect 1177 781 1195 867
+<< metal1 >>
+rect 967 868 1050 874
+rect 967 780 1024 868
+rect 967 774 1050 780
+rect 1174 867 1200 873
+rect 1174 775 1200 781
+rect 1066 741 1134 747
+rect 1092 653 1134 741
+rect 1066 647 1134 653
+<< via1 >>
+rect 1024 780 1050 868
+rect 1174 781 1177 867
+rect 1177 781 1195 867
+rect 1195 781 1200 867
+rect 1066 653 1092 741
 use mimcaps  mimcaps_0
-timestamp 1752779898
+timestamp 1752789301
 transform 1 0 187 0 1 448
 box 0 0 986 724
 use pixeltransistors  pixeltransistors_0
-timestamp 1752779898
+timestamp 1752789301
 transform 1 0 760 0 1 580
 box 72 -178 377 345
 use wires  wires_0
-timestamp 1752533151
+timestamp 1752781518
 transform 1 0 0 0 1 0
 box 0 0 1200 1200
 << end >>
