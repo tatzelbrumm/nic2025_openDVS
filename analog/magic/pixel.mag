@@ -78,7 +78,7 @@ rect 904 659 907 685
 rect 874 656 907 659
 use mimcaps  mimcaps_0
 timestamp 1752792418
-transform 1 0 187 0 1 448
+transform 1 0 0 0 1 476
 box 0 0 986 724
 use pixeltransistors  pixeltransistors_0
 timestamp 1752791877
