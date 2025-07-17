@@ -15,10 +15,6 @@ L 4 820 -480 820 -400 {}
 L 4 520 -480 520 -400 {}
 L 4 390 -480 390 -90 {}
 L 4 120 -480 120 -390 {}
-L 4 510 -300 510 -160 {}
-L 4 410 -300 410 -160 {}
-L 4 410 -300 510 -300 {}
-L 4 410 -160 510 -160 {}
 N 340 -560 340 -390 {
 lab=VDD}
 N 180 -560 340 -560 {
@@ -81,8 +77,6 @@ N 600 -440 620 -440 {
 lab=GND}
 N 690 -80 770 -80 {
 lab=GND}
-N 500 -280 500 -180 {
-lab=vin}
 N 340 -280 340 -160 {
 lab=vph_sf}
 N 770 -410 770 -210 {
@@ -97,12 +91,6 @@ N 180 -250 180 -80 {
 lab=GND}
 N 80 -440 140 -440 {
 lab=vph_bias}
-N 80 -180 420 -180 {
-lab=vref}
-N 340 -280 420 -280 {
-lab=vph_sf}
-N 480 -180 670 -180 {
-lab=vin}
 N 80 -540 540 -540 {
 lab=row_sel}
 N 360 -80 620 -80 {
@@ -121,17 +109,18 @@ N 600 -410 600 -360 {
 lab=#net1}
 N 670 -580 670 -390 {
 lab=feedback}
-N 670 -330 670 -280 {
+N 670 -330 670 -240 {
 lab=vin}
 N 690 -360 690 -80 {
 lab=GND}
 N 340 -330 340 -280 {
 lab=vph_sf}
-N 500 -180 670 -180 {}
-N 480 -280 500 -280 {}
-N 670 -280 670 -180 {}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 450 -280 3 0 {name=CSAMPLE model=cap_mim_m3_1 W=1 L=1 MF=16 spiceprefix=X}
-C {sky130_fd_pr/cap_mim_m3_1.sym} 450 -180 3 0 {name=CREF model=cap_mim_m3_1 W=1 L=1 MF=2 spiceprefix=X}
+N 670 -240 670 -180 {
+lab=vin}
+N 80 -200 460 -200 {}
+N 340 -280 460 -280 {}
+N 540 -240 670 -240 {
+lab=vin}
 C {sky130_fd_pr/nfet_01v8.sym} 160 -440 0 0 {name=M1
 W=0.5
 L=0.15
@@ -239,7 +228,7 @@ spiceprefix=X
 C {devices/iopin.sym} 80 -80 2 0 {name=p0 lab=GND}
 C {devices/iopin.sym} 80 -560 2 0 {name=p1 lab=VDD}
 C {devices/ipin.sym} 80 -540 0 0 {name=p2 lab=row_sel}
-C {devices/ipin.sym} 80 -180 0 0 {name=p3 lab=vref}
+C {devices/ipin.sym} 80 -200 0 0 {name=p3 lab=vref}
 C {devices/ipin.sym} 80 -440 0 0 {name=p4 lab=vph_bias}
 C {devices/ipin.sym} 80 -130 0 0 {name=p5 lab=sf_bias}
 C {devices/ipin.sym} 600 -580 1 0 {name=p6 lab=pix_rst}
@@ -247,5 +236,6 @@ C {devices/ipin.sym} 670 -580 1 0 {name=p7 lab=feedback}
 C {devices/opin.sym} 770 -580 3 0 {name=p8 lab=sense}
 C {devices/lab_pin.sym} 180 -360 2 1 {name=p9 lab=vphoto}
 C {devices/lab_pin.sym} 340 -280 2 1 {name=p10 lab=vph_sf}
-C {devices/lab_pin.sym} 670 -230 2 1 {name=p11 lab=vin}
+C {devices/lab_pin.sym} 670 -180 2 1 {name=p11 lab=vin}
 C {devices/title.sym} 160 0 0 0 {name=l1 author="Raj"}
+C {mimcaps.sym} 500 -240 3 0 {name=xmim}
