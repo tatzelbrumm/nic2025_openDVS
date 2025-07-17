@@ -1,21 +1,55 @@
 magic
 tech sky130A
 magscale 1 2
-timestamp 1752686468
+timestamp 1752769103
+<< poly >>
+rect 466 674 558 690
+rect 466 640 508 674
+rect 542 640 558 674
+rect 466 624 558 640
+rect 466 606 496 624
+rect 492 158 558 174
+rect 492 124 508 158
+rect 542 124 558 158
+rect 492 116 558 124
+rect 492 86 608 116
+rect 290 -70 320 -46
+rect 272 -86 338 -70
+rect 272 -120 288 -86
+rect 322 -120 338 -86
+rect 272 -136 338 -120
+<< polycont >>
+rect 508 640 542 674
+rect 508 124 542 158
+rect 288 -120 322 -86
+<< locali >>
+rect 492 640 508 674
+rect 542 640 654 674
+rect 620 576 654 640
+rect 508 158 542 400
+rect 508 108 542 124
+rect 156 -86 190 -32
+rect 420 -34 566 74
+rect 620 58 654 146
+rect 156 -120 288 -86
+rect 322 -120 338 -86
+<< metal1 >>
+rect 414 -30 572 70
+rect 614 58 660 146
 use nmos_triplet  nmos_triplet_0
 timestamp 1752622656
-transform 1 0 161 0 1 76
+transform 1 0 305 0 1 20
 box -161 -76 161 76
 use select_nmos  select_nmos_0
 timestamp 1752626262
-transform 0 1 621 -1 0 247
+transform 1 0 681 0 1 361
 box -73 -253 73 253
 use sky130_fd_pr__nfet_01v8_JB3UY8  sky130_fd_pr__nfet_01v8_JB3UY8_0
 timestamp 1752626882
-transform 0 1 582 -1 0 5
+transform 1 0 593 0 1 -130
 box -73 -226 73 226
 use sky130_fd_pr__nfet_01v8_QQ7V57  sky130_fd_pr__nfet_01v8_QQ7V57_0
-timestamp 1752626262
-transform -1 0 247 0 1 -178
+timestamp 1752768517
+transform -1 0 481 0 1 488
 box -73 -126 73 126
 << end >>
