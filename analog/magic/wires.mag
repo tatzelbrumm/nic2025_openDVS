@@ -1,8 +1,6 @@
 magic
 tech sky130A
 timestamp 1752781518
-<< isosubstrate >>
-rect 0 0 1200 1200
 << metal1 >>
 rect 0 1174 1200 1200
 rect 0 1108 1200 1158
