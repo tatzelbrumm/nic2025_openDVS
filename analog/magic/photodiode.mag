@@ -1,11 +1,11 @@
 magic
 tech sky130A
-timestamp 1752857569
+timestamp 1752858647
 << photodiode >>
-rect 0 702 538 790
-rect 0 506 630 702
-rect 0 364 780 506
-rect 0 0 1055 364
+rect 30 672 508 760
+rect 30 476 601 672
+rect 30 334 750 476
+rect 30 30 1024 334
 << nwell >>
 rect 30 672 508 760
 rect 30 476 600 672
@@ -22,7 +22,6 @@ rect 92 92 957 100
 << pdiffc >>
 rect 931 100 948 264
 << psubdiff >>
-rect 0 790 17 791
 rect 0 773 34 790
 rect 504 773 538 790
 rect 0 757 17 773
@@ -81,7 +80,6 @@ rect 732 299 972 316
 rect 989 82 1006 282
 rect 82 48 972 65
 << locali >>
-rect 0 790 17 791
 rect 0 773 34 790
 rect 504 773 538 790
 rect 0 757 17 773
