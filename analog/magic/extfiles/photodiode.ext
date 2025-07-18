@@ -1,13 +1,15 @@
-timestamp 1752852166
+timestamp 1752856653
 version 8.3
 tech sky130A
 style ngspice()
 scale 1000 1 500000
 resistclasses 4400000 2200000 950000 3050000 120000 197000 114000 191000 120000 197000 114000 191000 48200 319800 2000000 48200 48200 12800 125 125 47 47 29 5
+parameters sky130_fd_pr__model__parasitic__diode_ps2dn a=area
 port "anode" 2 184 184 1914 544 pdif
 port "cathode" 1 164 96 1944 130 li
 port "guard" 0 0 68 34 1514 li
 node "anode" 742 0 184 184 pdif 0 0 0 0 0 0 0 0 0 0 1434464 5884 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 node "cathode" 27853 9603.37 164 96 li 0 0 0 0 2232800 6896 0 0 220048 12944 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 220048 12944 0 0 0 0 0 0 0 0 0 0 0 0
 substrate "guard" 0 0 0 68 li 0 0 0 0 0 0 0 0 0 0 246228 14484 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 246228 14484 0 0 0 0 0 0 0 0 0 0 0 0
-cap "cathode" "anode" 63.0238
+cap "anode" "cathode" 63.0238
+device ndiode sky130_fd_pr__model__parasitic__diode_ps2dn 0 0 1 1 a=2662416 "guard" "cathode" 0 0 "guard" 0 0

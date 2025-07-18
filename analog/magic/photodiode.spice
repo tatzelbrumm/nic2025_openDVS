@@ -1,3 +1,4 @@
 * SPICE3 file created from photodiode.ext - technology: sky130A
 
+D0 guard cathode sky130_fd_pr__model__parasitic__diode_ps2dn area=66.5604
 C0 cathode guard 9.60337f
