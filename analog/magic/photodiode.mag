@@ -108,4 +108,12 @@ rect 0 17 17 34
 rect 1037 17 1054 34
 rect 0 0 34 17
 rect 1021 0 1054 17
+<< labels >>
+flabel pdiff s 92 92 957 272 0 FreeSans 320 0 0 0 anode
+port 2 nsew
+flabel locali s 82 48 972 65 0 FreeSans 320 0 0 0 cathode
+port 1 nsew
+flabel locali s 0 34 17 757 0 FreeSans 320 0 0 0 guard
+port 0 nsew
+
 << end >>
