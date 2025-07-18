@@ -1,0 +1,9 @@
+magic
+tech sky130A
+timestamp 1752840811
+<< nwell >>
+rect 0 673 508 760
+rect 0 476 600 673
+rect 0 347 750 476
+rect 0 0 1024 347
+<< end >>
