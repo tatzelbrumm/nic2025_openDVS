@@ -1,0 +1,16 @@
+* SPICE3 file created from pixel.ext - technology: sky130A
+
+D0 wires_0/GND photodiode_0/cathode sky130_fd_pr__model__parasitic__diode_ps2dn area=55.8396
+X0 pixeltransistors_0/a_408_n30# wires_0/sf_bias mimcaps_0/bigtop wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.0804 pd=2.68 as=0.0725 ps=0.79 w=0.5 l=0.15
+X1 wires_0/GND wires_0/vph_bias photodiode_0/cathode wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.0725 pd=0.79 as=0.145 ps=1.58 w=0.5 l=0.15
+X2 mimcaps_0/bigtop photodiode_0/cathode wires_0/GND wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.0725 pd=0.79 as=0.0725 ps=0.79 w=0.5 l=0.15
+X3 wires_0/GND wires_0/GND wires_0/GND sky130_fd_pr__res_generic_nd w=2 l=2.68
+X4 mimcaps_0/bottom pixeltransistors_0/a_466_362# wires_0/feedback wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.29 pd=2.58 as=0.29 ps=2.58 w=1 l=0.15
+X5 wires_0/sense wires_0/row_sel pixeltransistors_0/a_608_n330# wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.29 pd=2.58 as=0.29 ps=2.58 w=1 l=0.15
+X6 pixeltransistors_0/a_608_n330# mimcaps_0/bottom wires_0/GND wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.58 pd=4.58 as=0.58 ps=4.58 w=2 l=0.15
+X7 wires_0/pix_rst wires_0/row_sel pixeltransistors_0/a_466_362# wires_0/GND sky130_fd_pr__nfet_01v8 ad=0.29 pd=2.58 as=0.29 ps=2.58 w=1 l=0.15
+X8 mimcaps_0/bigtop mimcaps_0/bottom sky130_fd_pr__cap_mim_m3_1 l=4 w=8
+X9 wires_0/vref mimcaps_0/bottom sky130_fd_pr__cap_mim_m3_1 l=2 w=2
+C0 mimcaps_0/bigtop mimcaps_0/bottom 3.615482f
+C1 mimcaps_0/bottom 0 2.089876f
+C2 photodiode_0/cathode 0 9.891438f
