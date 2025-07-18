@@ -1,4 +1,4 @@
-timestamp 1752700428
+timestamp 1752851064
 version 8.3
 tech sky130A
 style ngspice()
@@ -14,16 +14,16 @@ node "liltop" 0 150.794 1279 79 m4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 node "bigtop" 0 882.992 79 647 m4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1098884 4488 0 0 0 0
 node "m3_1200_440#" 0 425.414 1200 440 m3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 129696 1880 0 0 0 0 0 0
 substrate "VSUBS" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-cap "bottom" "m3_1200_440#" 123.313
+cap "liltop" "bottom" 78.6182
 cap "bigtop" "liltop" 84.0778
-cap "liltop" "m3_1200_440#" 93.824
-cap "bigtop" "m3_1200_440#" 125.731
-cap "bottom" "liltop" 78.6182
+cap "m3_1200_440#" "liltop" 93.824
 cap "bigtop" "bottom" 176.281
-cap "sky130_fd_pr__cap_mim_m3_1_FJFAMD_0/c1_n346_n200#" "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/m3_n986_n440#" -20.7483
+cap "m3_1200_440#" "bottom" 123.313
+cap "bigtop" "m3_1200_440#" 125.731
 cap "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/c1_n946_n400#" "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/m3_n986_n440#" -33.9634
-cap "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/c1_n946_n400#" "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/m3_n986_n440#" -215.202
+cap "sky130_fd_pr__cap_mim_m3_1_FJFAMD_0/c1_n346_n200#" "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/m3_n986_n440#" -20.7483
 cap "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/m3_n986_n440#" "sky130_fd_pr__cap_mim_m3_1_FJFAMD_0/c1_n346_n200#" -113.084
+cap "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/m3_n986_n440#" "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/c1_n946_n400#" -215.202
 merge "sky130_fd_pr__cap_mim_m3_1_4CW8F2_0/VSUBS" "sky130_fd_pr__cap_mim_m3_1_FJFAMD_0/VSUBS" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 merge "sky130_fd_pr__cap_mim_m3_1_FJFAMD_0/VSUBS" "VSUBS"
 merge "sky130_fd_pr__cap_mim_m3_1_FJFAMD_0/c1_n346_n200#" "liltop" -207.352 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -103684 -1288 0 0 0 0

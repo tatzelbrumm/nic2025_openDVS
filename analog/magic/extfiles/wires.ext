@@ -1,0 +1,52 @@
+timestamp 1752852166
+version 8.3
+tech sky130A
+style ngspice()
+scale 1000 1 500000
+resistclasses 4400000 2200000 950000 3050000 120000 197000 114000 191000 120000 197000 114000 191000 48200 319800 2000000 48200 48200 12800 125 125 47 47 29 5
+port "pix_rst" 8 2348 0 2400 2400 m2
+port "sense" 6 2132 0 2184 2400 m2
+port "feedback" 7 2048 0 2100 2400 m2
+port "sf_bias" 3 0 1832 2400 1884 m1
+port "vph_bias" 2 0 1916 2400 1968 m1
+port "GND" 0 0 2000 2400 2100 m1
+port "vref" 4 0 2132 2400 2184 m1
+port "VDD" 1 0 2216 2400 2316 m1
+port "row_sel" 5 0 2348 2400 2400 m1
+node "pix_rst" 6 531.467 2348 0 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0
+node "sense" 6 91.7401 2132 0 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0
+node "feedback" 6 471.26 2048 0 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0
+node "sf_bias" 6 613.88 0 1832 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0 0 0
+node "vph_bias" 6 152.549 0 1916 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0 0 0
+node "GND" 6 401.34 0 2000 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 240000 5000 240000 5000 0 0 0 0 0 0 0 0
+node "vref" 6 152.549 0 2132 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0 0 0
+node "VDD" 3 246.269 0 2216 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 240000 5000 0 0 0 0 0 0 0 0 0 0
+node "row_sel" 6 613.88 0 2348 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 124800 4904 0 0 0 0 0 0 0 0 0 0
+substrate "VSUBS" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "GND" "row_sel" 32.5923
+cap "VDD" "vref" 1287.8
+cap "vph_bias" "feedback" 36.911
+cap "vref" "sense" 24.4877
+cap "vph_bias" "pix_rst" 19.9964
+cap "VDD" "feedback" 65.0233
+cap "sense" "feedback" 1304.35
+cap "VDD" "pix_rst" 32.4951
+cap "vph_bias" "sense" 24.4877
+cap "VDD" "sense" 41.1323
+cap "GND" "sf_bias" 55.9709
+cap "row_sel" "feedback" 33.683
+cap "row_sel" "pix_rst" 16.7683
+cap "VDD" "row_sel" 1287.8
+cap "row_sel" "sense" 21.2597
+cap "GND" "vref" 1326.6
+cap "GND" "feedback" 65.0233
+cap "GND" "pix_rst" 1336.84
+cap "vph_bias" "GND" 1326.6
+cap "sf_bias" "feedback" 45.8399
+cap "VDD" "GND" 63.155
+cap "sf_bias" "pix_rst" 28.9252
+cap "vph_bias" "sf_bias" 1287.8
+cap "GND" "sense" 1345.48
+cap "sf_bias" "sense" 33.4166
+cap "vref" "feedback" 36.911
+cap "vref" "pix_rst" 19.9964

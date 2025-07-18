@@ -1,0 +1,312 @@
+timestamp 1752852166
+version 8.3
+tech sky130A
+style ngspice()
+scale 1000 1 500000
+resistclasses 4400000 2200000 950000 3050000 120000 197000 114000 191000 120000 197000 114000 191000 48200 319800 2000000 48200 48200 12800 125 125 47 47 29 5
+use photodiode photodiode_0 1 0 0 0 1 0
+use wires wires_0 1 0 0 0 1 0
+use pixeltransistors pixeltransistors_0 1 0 1520 0 1 1160
+use mimcaps mimcaps_0 1 0 0 0 1 952
+port "pix_rst" 8 2348 0 2400 2400 m2
+port "feedback" 7 2048 0 2100 2400 m2
+port "sense" 6 2132 0 2184 2400 m2
+port "row_sel" 5 0 2348 2400 2400 m1
+port "vref" 4 0 2132 2400 2184 m1
+port "sf_bias" 3 0 1832 2400 1884 m1
+port "vph_bias" 2 0 1916 2400 1968 m1
+port "VDD" 1 0 2216 2400 2316 m1
+port "GND" 0 0 2000 2400 2100 m1
+node "pix_rst" 0 0 2348 0 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "feedback" 0 0 2048 0 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "sense" 0 0 2132 0 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "row_sel" 0 0 0 2348 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "vref" 0 0 0 2132 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "sf_bias" 0 0 0 1832 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "vph_bias" 0 0 0 1916 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "VDD" 0 0 0 2216 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "GND" 0 0 0 2000 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "m1_1030_1350#" 4 670.995 1030 1350 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 58452 2536 6084 312 9984 400 30912 836 0 0 0 0
+node "m1_2132_1294#" 1 161.378 2132 1294 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 27200 672 9152 456 0 0 0 0 0 0 0 0
+node "m1_1934_1548#" 1 162.824 1934 1548 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 33200 732 9152 456 0 0 0 0 0 0 0 0
+node "m1_1748_1298#" 3 262.097 1748 1298 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 18420 932 52008 1708 0 0 0 0 0 0 0 0
+node "m1_1522_2132#" 3 616.59 1522 2132 v 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3224 228 100864 3020 9984 400 30720 832 0 0 0 0
+node "li_1622_598#" 56 336.373 1622 598 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4896 356 36008 1548 0 0 0 0 0 0 0 0 0 0
+node "li_2240_842#" 137 515.761 2240 842 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 12308 792 108000 1340 37600 952 0 0 0 0 0 0 0 0
+node "li_1526_950#" 17 61.0303 1526 950 li 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5208 292 0 0 0 0 0 0 0 0 0 0 0 0
+node "li_2228_1544#" 17 294.715 2228 1544 li 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 33696 740 10192 496 8944 448 0 0 0 0 0 0 0 0
+node "a_1862_200#" 2188 743.377 1862 200 pdc 0 0 0 0 0 0 0 0 0 0 11152 724 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 23392 1512 165600 1640 32800 856 0 0 0 0 0 0 0 0
+node "a_1888_764#" 401 464.346 1888 764 p 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11232 676 0 0 4356 264 4356 264 9216 384 9984 400 20352 616 0 0 0 0
+node "a_1862_1318#" 436 305.506 1862 1318 p 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 6996 440 0 0 21024 1244 1440 152 0 0 0 0 0 0 0 0 0 0
+node "a_1702_1318#" 472 349.029 1702 1318 p 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 6996 440 0 0 22100 1368 1360 148 0 0 0 0 0 0 0 0 0 0
+node "a_2150_1868#" 469 426.707 2150 1868 p 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7956 504 0 0 19152 1136 1440 152 0 0 0 0 0 0 0 0 0 0
+substrate "a_1526_950#" 0 0 1526 950 ppd 0 0 0 0 0 0 0 0 0 0 6364 360 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "li_2228_1544#" "a_1862_200#" 0.137448
+cap "li_2240_842#" "li_1526_950#" 2.81425
+cap "a_1862_1318#" "m1_2132_1294#" 3.67208
+cap "a_1888_764#" "li_1526_950#" 0.0635649
+cap "m1_1522_2132#" "li_1622_598#" 46.6676
+cap "a_1702_1318#" "m1_2132_1294#" 0.144181
+cap "m1_1522_2132#" "li_2240_842#" 33.894
+cap "li_2228_1544#" "li_2240_842#" 4.28634
+cap "m1_1522_2132#" "m1_1748_1298#" 185.8
+cap "a_1862_1318#" "m1_1934_1548#" 26.6406
+cap "li_2228_1544#" "m1_1748_1298#" 0.618062
+cap "m1_1522_2132#" "a_1888_764#" 88.1633
+cap "a_2150_1868#" "a_1862_200#" 0.165717
+cap "a_1862_200#" "m1_1030_1350#" 2.32279
+cap "a_1702_1318#" "a_1862_1318#" 128.537
+cap "a_1702_1318#" "m1_1934_1548#" 2.39721
+cap "li_1622_598#" "m1_1030_1350#" 12.3957
+cap "a_2150_1868#" "li_2240_842#" 0.714471
+cap "li_2240_842#" "m1_1030_1350#" 21.5686
+cap "a_2150_1868#" "m1_1748_1298#" 3.95846
+cap "m1_1030_1350#" "m1_1748_1298#" 232.862
+cap "m1_1522_2132#" "m1_2132_1294#" 0.594307
+cap "li_2228_1544#" "m1_2132_1294#" 8.64969
+cap "a_1888_764#" "m1_1030_1350#" 4.16551
+cap "a_1862_1318#" "m1_1522_2132#" 0.484012
+cap "m1_1522_2132#" "m1_1934_1548#" 1.07252
+cap "li_2228_1544#" "a_1862_1318#" 14.5714
+cap "li_2228_1544#" "m1_1934_1548#" 64.94
+cap "a_1862_200#" "li_2240_842#" 48.7261
+cap "a_1702_1318#" "m1_1522_2132#" 16.7633
+cap "a_1888_764#" "a_1862_200#" 40.1126
+cap "a_2150_1868#" "m1_2132_1294#" 4.79185
+cap "m1_2132_1294#" "m1_1030_1350#" 27.6601
+cap "li_1622_598#" "li_2240_842#" 34.9206
+cap "li_1622_598#" "m1_1748_1298#" 34.4221
+cap "a_1888_764#" "li_1622_598#" 22.3138
+cap "a_2150_1868#" "a_1862_1318#" 2.2106
+cap "a_1862_1318#" "m1_1030_1350#" 43.4111
+cap "m1_1030_1350#" "m1_1934_1548#" 1.72207
+cap "a_1888_764#" "li_2240_842#" 20.7557
+cap "m1_1522_2132#" "li_1526_950#" 13.7429
+cap "a_2150_1868#" "a_1702_1318#" 5.17247
+cap "a_1702_1318#" "m1_1030_1350#" 39.7807
+cap "a_1862_1318#" "a_1862_200#" 0.934437
+cap "a_1862_200#" "m1_1934_1548#" 3.84061
+cap "m1_2132_1294#" "li_2240_842#" 52.4912
+cap "m1_2132_1294#" "m1_1748_1298#" 22.7311
+cap "m1_1030_1350#" "li_1526_950#" 0.626684
+cap "li_2240_842#" "m1_1934_1548#" 6.45652
+cap "a_1702_1318#" "li_1622_598#" 2.70533
+cap "a_2150_1868#" "m1_1522_2132#" 1.23262
+cap "m1_1522_2132#" "m1_1030_1350#" 88.8443
+cap "a_1862_1318#" "m1_1748_1298#" 20.8034
+cap "a_2150_1868#" "li_2228_1544#" 0.4657
+cap "m1_1934_1548#" "m1_1748_1298#" 46.1493
+cap "li_2228_1544#" "m1_1030_1350#" 1.00787
+cap "a_1862_1318#" "a_1888_764#" 8.59062
+cap "a_1888_764#" "m1_1934_1548#" 3.48115
+cap "a_1702_1318#" "m1_1748_1298#" 37.8966
+cap "li_1622_598#" "li_1526_950#" 6.95295
+cap "wires_0/sf_bias" "mimcaps_0/bigtop" -0.0469403
+cap "photodiode_0/anode" "photodiode_0/cathode" 1.13687e-13
+cap "mimcaps_0/bottom" "mimcaps_0/bigtop" 4.59133
+cap "photodiode_0/anode" "wires_0/vph_bias" 0.0196117
+cap "wires_0/vref" "photodiode_0/anode" 27.8724
+cap "wires_0/sense" "mimcaps_0/bigtop" -0.0947942
+cap "photodiode_0/cathode" "mimcaps_0/bigtop" 24.4238
+cap "wires_0/vph_bias" "mimcaps_0/bigtop" -0.0780806
+cap "mimcaps_0/bottom" "photodiode_0/cathode" 24.8222
+cap "wires_0/vref" "mimcaps_0/bigtop" 2.56984
+cap "photodiode_0/anode" "wires_0/VDD" 0.0208427
+cap "wires_0/row_sel" "photodiode_0/anode" 0.00918319
+cap "wires_0/vref" "photodiode_0/cathode" 11.9182
+cap "photodiode_0/anode" "wires_0/sf_bias" 0.02366
+cap "photodiode_0/anode" "mimcaps_0/bigtop" 31.1275
+cap "photodiode_0/anode" "mimcaps_0/bottom" 67.4221
+cap "wires_0/feedback" "wires_0/vph_bias" 1.25749
+cap "photodiode_0/cathode" "wires_0/vph_bias" 9.21205
+cap "wires_0/sense" "wires_0/feedback" 0.808408
+cap "wires_0/vref" "photodiode_0/anode" 87.4316
+cap "mimcaps_0/bottom" "wires_0/vph_bias" 8.74431
+cap "wires_0/sense" "photodiode_0/cathode" 0.589248
+cap "wires_0/sense" "mimcaps_0/bottom" 26.0469
+cap "wires_0/sf_bias" "wires_0/vph_bias" -2.84932
+cap "mimcaps_0/bigtop" "wires_0/vph_bias" -0.219278
+cap "wires_0/sense" "mimcaps_0/bigtop" 0.520671
+cap "wires_0/VDD" "photodiode_0/anode" 0.0803509
+cap "wires_0/sense" "wires_0/sf_bias" -0.907638
+cap "pixeltransistors_0/a_608_n330#" "wires_0/vph_bias" 0.0363719
+cap "wires_0/sense" "pixeltransistors_0/a_608_n330#" 11.439
+cap "wires_0/vref" "wires_0/VDD" 0.00622797
+cap "wires_0/row_sel" "wires_0/sense" 1.60969
+cap "photodiode_0/cathode" "wires_0/feedback" 44.3749
+cap "mimcaps_0/bottom" "wires_0/feedback" 125.047
+cap "mimcaps_0/bottom" "photodiode_0/cathode" 121.952
+cap "photodiode_0/anode" "wires_0/vph_bias" 8.51733
+cap "wires_0/sense" "wires_0/pix_rst" 2.1012
+cap "wires_0/sense" "photodiode_0/anode" 324.931
+cap "photodiode_0/cathode" "wires_0/sf_bias" 0.783574
+cap "wires_0/sf_bias" "wires_0/feedback" 2.4106
+cap "mimcaps_0/bigtop" "wires_0/feedback" 6.60925
+cap "photodiode_0/cathode" "mimcaps_0/bigtop" 2.88973
+cap "mimcaps_0/bottom" "wires_0/sf_bias" 22.2253
+cap "pixeltransistors_0/a_608_n330#" "wires_0/feedback" 0.877915
+cap "mimcaps_0/bottom" "mimcaps_0/bigtop" 20.6827
+cap "wires_0/vref" "wires_0/vph_bias" 0.862848
+cap "wires_0/vref" "wires_0/sense" -0.565966
+cap "pixeltransistors_0/a_608_n330#" "mimcaps_0/bottom" 0.707737
+cap "wires_0/row_sel" "wires_0/feedback" 0.0326447
+cap "wires_0/row_sel" "photodiode_0/cathode" 0.044783
+cap "mimcaps_0/bigtop" "wires_0/sf_bias" 5.85626
+cap "wires_0/row_sel" "mimcaps_0/bottom" 0.315452
+cap "pixeltransistors_0/a_608_n330#" "wires_0/sf_bias" 0.182644
+cap "pixeltransistors_0/a_608_n330#" "mimcaps_0/bigtop" 0.717576
+cap "photodiode_0/anode" "wires_0/feedback" 453.125
+cap "photodiode_0/cathode" "photodiode_0/anode" 199.001
+cap "wires_0/row_sel" "mimcaps_0/bigtop" 0.178323
+cap "wires_0/pix_rst" "photodiode_0/cathode" 0.398165
+cap "mimcaps_0/bottom" "photodiode_0/anode" 251.652
+cap "pixeltransistors_0/a_466_362#" "mimcaps_0/bottom" 0.287293
+cap "wires_0/pix_rst" "mimcaps_0/bottom" 9.99751
+cap "wires_0/vref" "wires_0/feedback" 44.7128
+cap "wires_0/vref" "photodiode_0/cathode" 60.0306
+cap "photodiode_0/anode" "wires_0/sf_bias" 5.11541
+cap "wires_0/pix_rst" "mimcaps_0/bigtop" 0.160738
+cap "photodiode_0/anode" "mimcaps_0/bigtop" -68.3217
+cap "wires_0/vref" "mimcaps_0/bottom" 324.121
+cap "wires_0/pix_rst" "wires_0/sf_bias" 0.0804245
+cap "wires_0/sense" "wires_0/vph_bias" -0.103174
+cap "wires_0/vref" "wires_0/sf_bias" 0.750046
+cap "pixeltransistors_0/a_608_n330#" "photodiode_0/anode" 32.7639
+cap "wires_0/vref" "mimcaps_0/bigtop" -0.0965625
+cap "wires_0/row_sel" "photodiode_0/anode" 2.94954
+cap "wires_0/VDD" "photodiode_0/cathode" 0.103829
+cap "wires_0/row_sel" "wires_0/pix_rst" 0.0739535
+cap "wires_0/VDD" "mimcaps_0/bottom" 0.165529
+cap "wires_0/vref" "wires_0/row_sel" 0.00279811
+cap "wires_0/pix_rst" "photodiode_0/anode" 11.7409
+cap "pixeltransistors_0/a_466_362#" "photodiode_0/anode" -1.29783
+cap "wires_0/feedback" "mimcaps_0/bigtop" -1.39146
+cap "mimcaps_0/bigtop" "wires_0/sense" -1.44332
+cap "wires_0/VDD" "photodiode_0/anode" 0.408281
+cap "wires_0/vph_bias" "photodiode_0/anode" 3.10419
+cap "wires_0/row_sel" "photodiode_0/anode" 0.161419
+cap "wires_0/VDD" "mimcaps_0/bigtop" 0.176309
+cap "wires_0/vph_bias" "mimcaps_0/bigtop" -0.887048
+cap "wires_0/VDD" "mimcaps_0/bottom" 147.065
+cap "photodiode_0/cathode" "wires_0/sf_bias" 27.6328
+cap "wires_0/vph_bias" "mimcaps_0/bottom" 89.0382
+cap "mimcaps_0/bigtop" "wires_0/row_sel" 0.0718661
+cap "photodiode_0/cathode" "photodiode_0/anode" 4.13003e-14
+cap "wires_0/vref" "photodiode_0/anode" 1.00621
+cap "wires_0/row_sel" "mimcaps_0/bottom" 75.9505
+cap "mimcaps_0/bigtop" "wires_0/vref" -4.02237
+cap "photodiode_0/cathode" "mimcaps_0/bigtop" 89.918
+cap "wires_0/vref" "mimcaps_0/bottom" 89.0382
+cap "photodiode_0/cathode" "mimcaps_0/bottom" 62.5568
+cap "wires_0/sf_bias" "photodiode_0/anode" 55.9792
+cap "wires_0/sf_bias" "mimcaps_0/bigtop" 39.1519
+cap "mimcaps_0/bigtop" "photodiode_0/anode" 164.386
+cap "mimcaps_0/bigtop" "wires_0/pix_rst" -1.00787
+cap "wires_0/sf_bias" "mimcaps_0/bottom" 175.107
+cap "photodiode_0/anode" "mimcaps_0/bottom" 295.826
+cap "mimcaps_0/bigtop" "mimcaps_0/bottom" 275.522
+cap "mimcaps_0/bottom" "photodiode_0/anode" 430.693
+cap "wires_0/sf_bias" "wires_0/sense" 12.2263
+cap "pixeltransistors_0/a_466_362#" "wires_0/sense" 21.2482
+cap "wires_0/feedback" "wires_0/sense" 2.42522
+cap "wires_0/pix_rst" "wires_0/sense" -0.638688
+cap "wires_0/sf_bias" "photodiode_0/anode" 277.306
+cap "pixeltransistors_0/a_466_362#" "photodiode_0/anode" -1.89532
+cap "wires_0/pix_rst" "photodiode_0/anode" 75.9252
+cap "wires_0/VDD" "photodiode_0/anode" 6.2717
+cap "wires_0/sense" "wires_0/vph_bias" -9.24261e-15
+cap "mimcaps_0/bottom" "wires_0/vref" 461.439
+cap "pixeltransistors_0/a_608_n330#" "wires_0/sense" 9.58576
+cap "wires_0/feedback" "photodiode_0/anode" 63.5035
+cap "pixeltransistors_0/a_466_362#" "wires_0/vref" 0.879615
+cap "wires_0/sense" "photodiode_0/cathode" 0.135371
+cap "wires_0/VDD" "wires_0/vref" 11.2172
+cap "pixeltransistors_0/a_608_n330#" "photodiode_0/anode" 0.0120812
+cap "wires_0/pix_rst" "wires_0/vref" 0.117049
+cap "photodiode_0/anode" "mimcaps_0/bigtop" 42.7484
+cap "wires_0/sf_bias" "wires_0/vref" 60.7649
+cap "photodiode_0/anode" "wires_0/vph_bias" 354.844
+cap "wires_0/feedback" "wires_0/vref" 7.38492
+cap "photodiode_0/anode" "photodiode_0/cathode" 0.0636687
+cap "mimcaps_0/bigtop" "wires_0/vref" -6.06571
+cap "wires_0/vph_bias" "wires_0/vref" 47.7026
+cap "photodiode_0/cathode" "wires_0/vref" 4.86039
+cap "wires_0/row_sel" "mimcaps_0/bottom" 46.9358
+cap "wires_0/sf_bias" "wires_0/row_sel" 20.3128
+cap "pixeltransistors_0/a_466_362#" "wires_0/row_sel" 23.1187
+cap "wires_0/pix_rst" "wires_0/row_sel" 1.77641
+cap "wires_0/VDD" "wires_0/row_sel" 44.7758
+cap "wires_0/feedback" "wires_0/row_sel" 0.0187472
+cap "pixeltransistors_0/a_608_n330#" "wires_0/row_sel" 0.762592
+cap "wires_0/row_sel" "mimcaps_0/bigtop" 0.0145594
+cap "wires_0/row_sel" "wires_0/vph_bias" 21.2068
+cap "wires_0/row_sel" "photodiode_0/cathode" 0.0985149
+cap "wires_0/sf_bias" "mimcaps_0/bottom" 108.26
+cap "pixeltransistors_0/a_466_362#" "mimcaps_0/bottom" 6.30612
+cap "wires_0/VDD" "mimcaps_0/bottom" 71.18
+cap "wires_0/pix_rst" "mimcaps_0/bottom" 20.0452
+cap "wires_0/sf_bias" "pixeltransistors_0/a_466_362#" 47.9097
+cap "wires_0/VDD" "pixeltransistors_0/a_466_362#" 0.684778
+cap "pixeltransistors_0/a_466_362#" "wires_0/pix_rst" 0.807565
+cap "wires_0/feedback" "mimcaps_0/bottom" 227.539
+cap "wires_0/sf_bias" "wires_0/pix_rst" 13.6832
+cap "wires_0/VDD" "wires_0/sf_bias" 0.0947945
+cap "pixeltransistors_0/a_466_362#" "wires_0/feedback" 19.6596
+cap "mimcaps_0/bottom" "mimcaps_0/bigtop" 90.0041
+cap "wires_0/feedback" "wires_0/pix_rst" -37.3275
+cap "wires_0/VDD" "wires_0/pix_rst" 0.143571
+cap "pixeltransistors_0/a_608_n330#" "mimcaps_0/bottom" 0.165734
+cap "wires_0/sf_bias" "wires_0/feedback" 107.995
+cap "mimcaps_0/bottom" "wires_0/vph_bias" 62.7505
+cap "pixeltransistors_0/a_466_362#" "mimcaps_0/bigtop" 5.99243e-17
+cap "photodiode_0/anode" "wires_0/sense" 43.7659
+cap "wires_0/sf_bias" "pixeltransistors_0/a_608_n330#" 0.283211
+cap "wires_0/sf_bias" "mimcaps_0/bigtop" 45.8644
+cap "wires_0/sf_bias" "wires_0/vph_bias" -61.4257
+cap "pixeltransistors_0/a_466_362#" "wires_0/vph_bias" 4.64422
+cap "wires_0/feedback" "mimcaps_0/bigtop" 4.14082
+cap "wires_0/feedback" "pixeltransistors_0/a_608_n330#" 0.298544
+cap "wires_0/pix_rst" "wires_0/vph_bias" 1.48837
+cap "wires_0/feedback" "wires_0/vph_bias" -2.51637
+cap "wires_0/VDD" "wires_0/vph_bias" 0.443717
+cap "pixeltransistors_0/a_608_n330#" "mimcaps_0/bigtop" 0.128207
+cap "wires_0/sense" "wires_0/vref" 2.74086e-16
+cap "mimcaps_0/bigtop" "photodiode_0/cathode" 7.31732
+cap "mimcaps_0/bigtop" "wires_0/vph_bias" -9.09306
+cap "photodiode_0/anode" "wires_0/vref" 104.935
+cap "photodiode_0/cathode" "wires_0/vph_bias" 0.456897
+cap "wires_0/row_sel" "wires_0/sense" 12.5611
+cap "wires_0/row_sel" "photodiode_0/anode" 102.891
+cap "wires_0/row_sel" "wires_0/vref" 26.1275
+cap "mimcaps_0/bottom" "wires_0/sense" 46.5624
+merge "mimcaps_0/bigtop" "pixeltransistors_0/a_320_n30#" -526.878 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -4600 -292 0 0 0 0 -6432 -326 0 0 0 0
+merge "pixeltransistors_0/a_320_n30#" "m1_1030_1350#"
+merge "mimcaps_0/bottom" "pixeltransistors_0/a_492_86#" -1083.49 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -780 -112 0 0 0 0 0 0 0 0 0 0 0 -192 0 0 0 0
+merge "pixeltransistors_0/a_492_86#" "a_1888_764#"
+merge "pixeltransistors_0/a_202_n56#" "wires_0/vph_bias" -132.803 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -780 -112 0 0 0 0 -1360 -148 0 0 0 0 0 0 0 0 0 0
+merge "wires_0/vph_bias" "a_1702_1318#"
+merge "pixeltransistors_0/a_666_108#" "wires_0/row_sel" -107.326 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -780 -112 0 0 0 0 -1440 -152 0 0 0 0 0 0 0 0 0 0
+merge "wires_0/row_sel" "a_2150_1868#"
+merge "pixeltransistors_0/a_408_388#" "wires_0/feedback" -517.073 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -9200 -492 -9152 -456 0 0 0 0 0 0 0 0
+merge "wires_0/feedback" "m1_1934_1548#"
+merge "pixeltransistors_0/a_378_n56#" "wires_0/sf_bias" -447.813 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -780 -112 0 0 0 0 -1440 -152 0 0 0 0 0 0 0 0 0 0
+merge "wires_0/sf_bias" "a_1862_1318#"
+merge "mimcaps_0/VSUBS" "pixeltransistors_0/a_232_n30#" -1889.83 0 0 0 0 0 0 0 0 0 0 -26792 -1848 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -50184 -3360 -27752 -1468 -70400 -1808 0 0 0 0 0 0 0 0
+merge "pixeltransistors_0/a_232_n30#" "pixeltransistors_0/a_56_n210#"
+merge "pixeltransistors_0/a_56_n210#" "wires_0/VSUBS"
+merge "wires_0/VSUBS" "wires_0/GND"
+merge "wires_0/GND" "li_2240_842#"
+merge "li_2240_842#" "m1_1748_1298#"
+merge "m1_1748_1298#" "photodiode_0/guard"
+merge "photodiode_0/guard" "li_1526_950#"
+merge "li_1526_950#" "a_1526_950#"
+merge "a_1526_950#" "photodiode_0/anode"
+merge "photodiode_0/anode" "a_1862_200#"
+merge "pixeltransistors_0/a_144_n30#" "photodiode_0/cathode" -321.434 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -4896 -356 -3036 -224 0 0 0 0 0 0 0 0 0 0
+merge "photodiode_0/cathode" "li_1622_598#"
+merge "mimcaps_0/liltop" "wires_0/vref" -386.273 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3224 -228 0 0 0 0 -3936 -274 0 0 0 0
+merge "wires_0/vref" "m1_1522_2132#"
+merge "pixeltransistors_0/a_696_388#" "wires_0/pix_rst" -195.895 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -7072 -484 0 0 -8944 -448 0 0 0 0 0 0 0 0
+merge "wires_0/pix_rst" "li_2228_1544#"
+merge "pixeltransistors_0/a_696_134#" "wires_0/sense" -231.305 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -9200 -492 -9152 -456 0 0 0 0 0 0 0 0
+merge "wires_0/sense" "m1_2132_1294#"
