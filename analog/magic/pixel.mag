@@ -1,6 +1,8 @@
 magic
 tech sky130A
-timestamp 1752839630
+timestamp 1752840811
+<< error_s >>
+rect 903 347 1037 360
 << poly >>
 rect 1075 959 1108 967
 rect 1075 942 1083 959
@@ -178,9 +180,13 @@ rect 936 382 943 416
 rect 978 382 984 416
 rect 936 376 984 382
 use mimcaps  mimcaps_0
-timestamp 1752839314
+timestamp 1752840811
 transform 1 0 0 0 1 476
 box 0 0 986 724
+use photodiode  photodiode_0
+timestamp 1752840811
+transform 1 0 0 0 1 0
+box 0 0 1024 760
 use pixeltransistors  pixeltransistors_0
 timestamp 1752839314
 transform 1 0 760 0 1 580
