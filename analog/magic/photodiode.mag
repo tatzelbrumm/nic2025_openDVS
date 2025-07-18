@@ -1,11 +1,17 @@
 magic
 tech sky130A
-timestamp 1752844568
+timestamp 1752846221
 << nwell >>
 rect 30 672 508 760
 rect 30 476 600 672
 rect 30 334 750 476
 rect 30 30 1024 334
+<< pdiff >>
+rect 90 613 448 702
+rect 90 416 540 613
+rect 90 274 690 416
+rect 90 91 957 274
+rect 90 90 209 91
 << psubdiff >>
 rect 0 773 538 790
 rect 0 17 17 773
