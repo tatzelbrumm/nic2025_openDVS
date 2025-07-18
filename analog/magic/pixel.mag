@@ -1,6 +1,6 @@
 magic
 tech sky130A
-timestamp 1752852166
+timestamp 1752876416
 << pdiffc >>
 rect 931 100 948 264
 << psubdiff >>
@@ -204,9 +204,9 @@ timestamp 1752851064
 transform 1 0 0 0 1 476
 box 0 0 986 724
 use photodiode  photodiode_0
-timestamp 1752852166
+timestamp 1752858647
 transform 1 0 0 0 1 0
-box 0 0 1054 791
+box 0 0 1054 790
 use pixeltransistors  pixeltransistors_0
 timestamp 1752851064
 transform 1 0 760 0 1 580
@@ -215,4 +215,23 @@ use wires  wires_0
 timestamp 1752852166
 transform 1 0 0 0 1 0
 box 0 0 1200 1200
+<< labels >>
+flabel metal1 0 1000 1200 1050 0 FreeSans 100 0 0 0 GND
+port 0 ew
+flabel metal1 0 1108 1200 1158 0 FreeSans 100 0 0 0 VDD
+port 1 ew
+flabel metal1 0 958 1200 984 0 FreeSans 100 0 0 0 vph_bias
+port 2 ew
+flabel metal1 0 916 1200 942 0 FreeSans 100 0 0 0 sf_bias
+port 3 ew
+flabel metal1 0 1066 1200 1092 0 FreeSans 100 0 0 0 vref
+port 4 ew
+flabel metal1 0 1174 1200 1200 0 FreeSans 100 0 0 0 row_sel
+port 5 ew
+flabel metal2 1066 0 1092 1200 0 FreeSans 100 90 0 0 sense
+port 6 ns
+flabel metal2 1024 0 1050 1200 0 FreeSans 100 90 0 0 feedback
+port 7 ns
+flabel metal2 1174 0 1200 1200 0 FreeSans 100 90 0 0 pix_rst
+port 8 ns
 << end >>
