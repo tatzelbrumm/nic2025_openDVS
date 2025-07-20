@@ -1,6 +1,6 @@
 magic
 tech sky130A
-timestamp 1752851064
+timestamp 1753028652
 << nmos >>
 rect 233 194 248 294
 rect 333 194 348 294
@@ -213,4 +213,27 @@ rect 207 -15 266 -9
 rect 263 -159 266 -15
 rect 283 -159 286 29
 rect 263 -165 286 -159
+<< labels >>
+flabel metal1 263 -165 286 35 0 FreeSans 100 90 0 0 GND
+port 0 nsew
+flabel metal1 119 -15 142 35 0 FreeSans 100 90 0 0 VDD
+port 1 ns
+flabel poly 333 54 348 307 0 FreeSans 100 90 0 0 row_sel
+port 2 ns
+flabel poly 101 -28 116 48 0 FreeSans 100 90 0 0 vph_bias
+port 3 ns
+flabel poly 189 -28 204 48 0 FreeSans 100 90 0 0 sf_bias
+port 4 ns
+flabel metal1 75 -15 98 35 0 FreeSans 100 90 0 0 vphoto
+port 5 ns
+flabel metal1 163 -15 186 35 0 FreeSans 100 90 0 0 vph_sf
+port 6 ns
+flabel metal1 207 194 230 294 0 FreeSans 100 90 0 0 feedback
+port 7 n
+flabel poly 354 192 371 296 0 FreeSans 100 90 0 0 pix_rst
+port 8 ns
+flabel locali 254 54 271 296 0 FreeSans 100 90 0 0 vin
+port 9 e
+flabel metal1 351 67 374 167 0 FreeSans 100 90 0 0 sense
+port 10 nsw
 << end >>
