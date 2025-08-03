@@ -1,6 +1,6 @@
 magic
 tech sky130A
-timestamp 1752876416
+timestamp 1753030846
 << pdiffc >>
 rect 931 100 948 264
 << psubdiff >>
@@ -208,7 +208,7 @@ timestamp 1752858647
 transform 1 0 0 0 1 0
 box 0 0 1054 790
 use pixeltransistors  pixeltransistors_0
-timestamp 1752851064
+timestamp 1753030846
 transform 1 0 760 0 1 580
 box 28 -233 421 421
 use wires  wires_0
